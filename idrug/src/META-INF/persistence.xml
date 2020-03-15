@@ -5,7 +5,9 @@
         <!-- Implementação do JPA -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Lista de entidades -->
-        <class>br.ufs.dcomp.idrug.dao.GenericoDAO</class>
+        <class>br.ufs.dcomp.idrug.to.Usuario</class>
+        <class>br.ufs.dcomp.idrug.to.Farmacia</class>
+        <class>br.ufs.dcomp.idrug.to.Paciente</class>
         <properties>
             <!-- Propriedades JDBC -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

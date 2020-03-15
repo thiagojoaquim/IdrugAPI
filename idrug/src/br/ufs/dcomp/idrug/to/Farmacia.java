@@ -6,21 +6,25 @@
 package br.ufs.dcomp.idrug.to;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author thiag
  */
-
+@Entity
 @Table(name = "farmacia")
-public class Farmacia implements EntidadeBase {
+public class Farmacia implements EntidadeBase, TipoUsuario {
+    @Id
     @Column(name = "cnpj")
     private String cnpj;
-    @ManyToOne
-    @JoinColumn(name = "idusuario", referencedColumnName = "usuario_idusuario")
+    @OneToOne
+   @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     private Usuario usuario;
 
     public String getCnpj() {

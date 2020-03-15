@@ -8,16 +8,19 @@ package br.ufs.dcomp.idrug.dao;
 import br.ufs.dcomp.idrug.factory.FabricaAbstrata;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 
 /**
  *
  * @author thiag
  */
-public class FabricaDAO implements FabricaAbstrata<GenericoDAO>{
+public class FabricaDAO implements FabricaAbstrata<GenericoDAO> {
 
     @Override
     public GenericoDAO criar(Class<? extends GenericoDAO> tipo) throws Exception {
         return tipo.newInstance();
+
     }
 
+    
 }
