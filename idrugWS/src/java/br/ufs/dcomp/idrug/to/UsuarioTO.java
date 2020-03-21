@@ -7,9 +7,6 @@ package br.ufs.dcomp.idrug.to;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
@@ -18,11 +15,9 @@ import javax.persistence.Id;
 public class UsuarioTO implements Serializable {
   
     private String nome;
-    private Date dataCadastro;
     private String senha;
-    private int idUsuario;  
-    private boolean isAtivo;
-
+    private String email;
+    
     public String getNome() {
         return nome;
     }
@@ -31,14 +26,7 @@ public class UsuarioTO implements Serializable {
         this.nome = nome;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date data) {
-        this.dataCadastro = data;
-    }
-
+   
     public String getSenha() {
         return senha;
     }
@@ -47,19 +35,13 @@ public class UsuarioTO implements Serializable {
         this.senha = senha;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-    public boolean isIsAtivo() {
-        return isAtivo;
-    }
-
-    public void setIsativo(boolean isativo) {
-        this.isAtivo = isativo;
-    }    
+    
+    
 }

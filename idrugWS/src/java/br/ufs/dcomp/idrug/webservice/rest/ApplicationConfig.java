@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author thiag
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("idrugWS")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -22,13 +22,8 @@ public class ApplicationConfig extends Application {
         return resources;
     }
 
-    /**
-     * Do not modify addRestResourceClasses() method.
-     * It is automatically populated with
-     * all resources defined in the project.
-     * If required, comment out calling this method in getClasses().
-     */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(br.ufs.dcomp.idrug.webservice.rest.MedicamentoResource.class);
         resources.add(br.ufs.dcomp.idrug.webservice.rest.SegurancaResource.class);
         resources.add(br.ufs.dcomp.idrug.webservice.rest.UsuarioResource.class);
     }

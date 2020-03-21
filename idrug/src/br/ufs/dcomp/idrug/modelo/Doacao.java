@@ -1,12 +1,12 @@
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
 
 import java.util.Date;
 
 public class Doacao implements EntidadeBase {
     
-    private Paciente paciente;
-    private Farmacia farmacia;
-    private Medicamento medicamento;
+    private Paciente paciente = new Paciente();
+    private Farmacia farmacia = new Farmacia();
+    private Medicamento medicamento = new Medicamento();
     private Date dataDoacao;
 
     public Paciente getPaciente() {

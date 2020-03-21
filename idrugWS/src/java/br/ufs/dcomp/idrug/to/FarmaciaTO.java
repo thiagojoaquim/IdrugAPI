@@ -5,13 +5,14 @@
  */
 package br.ufs.dcomp.idrug.to;
 
+import com.google.gson.Gson;
 import java.util.Objects;
 
 /**
  *
  * @author thiag
  */
-public class FarmaciaTO extends UsuarioTO{
+public class FarmaciaTO extends UsuarioTO {
     
     private String cnpj;
 
@@ -40,4 +41,5 @@ public class FarmaciaTO extends UsuarioTO{
         }
         return true;
     }    
+    
 }

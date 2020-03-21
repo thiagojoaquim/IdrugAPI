@@ -5,7 +5,8 @@
  */
 package br.ufs.dcomp.idrug.dao;
 
-import br.ufs.dcomp.idrug.to.TipoUsuario;
+import br.ufs.dcomp.idrug.modelo.TipoUsuario;
+import br.ufs.dcomp.idrug.modelo.Usuario;
 import javax.persistence.Query;
 
 /**
@@ -19,8 +20,8 @@ public class UsuarioDAO<T extends TipoUsuario> extends GenericoDAO {
         comecarTransacao();
         StringBuilder sqlQuery = new StringBuilder();
         sqlQuery.append("SELECT IDUSUARIO")
-                .append(" FROM idrugdb.USUARIO U LEFT JOIN idrugdb.FARMACIA F ON (u.IDUSUARIO = F.USUARIO_IDUSUARIO)")
-                .append(" LEFT JOIN idrugdb.PACIENTE P ON (u.IDUSUARIO = P.USUARIO_IDUSUARIO)")
+                .append(" FROM USUARIO U LEFT JOIN FARMACIA F ON (u.IDUSUARIO = F.USUARIO_IDUSUARIO)")
+                .append(" LEFT JOIN PACIENTE P ON (u.IDUSUARIO = P.USUARIO_IDUSUARIO)")
                 .append(" Where (CPF = :id or CNPJ = :id2) AND senhausuario = :senha");
         Query query = getEntityManager().createNativeQuery(sqlQuery.toString());
         query.setParameter("id", identificador);
@@ -29,6 +30,6 @@ public class UsuarioDAO<T extends TipoUsuario> extends GenericoDAO {
        return query.getResultList().size() > 0;
 
     }
-  
+    
 
 }

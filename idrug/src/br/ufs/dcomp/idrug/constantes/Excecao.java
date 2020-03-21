@@ -14,7 +14,10 @@ public enum Excecao {
     USUARIO_SENHA_INVALIDO("Usuario ou senha é inválido", "IDR001"),
     CPF_INVALIDO("O cpf informado é inválido", "IDR002"),
     CNPJ_INVALIDO("O cpf informado é inválido", "IDR003"),
-    NAO_FOI_POSSIVEL_CADASTRAR_USUARIO("Não foi possível cadastrar o usuário informado.", "IDR004");
+    NAO_FOI_POSSIVEL_CADASTRAR_USUARIO("Não foi possível cadastrar o usuário informado.", "IDR004"),
+    NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS("Não foi possível resgatar os medicamentos.", "IDR005"),
+    DADOS_INFORMADOS_INCORRETOS("Dados incorretos.", "IDR006"),
+    ERRO_GENERICO("Não foi possível concluir a operação solicitada.", "IDR007");
 
     public String mensagem;
     public String codigo;

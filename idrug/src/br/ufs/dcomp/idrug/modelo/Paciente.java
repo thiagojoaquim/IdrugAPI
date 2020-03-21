@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
 
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -30,7 +30,7 @@ public class Paciente implements EntidadeBase, TipoUsuario {
     private Date dataNascimento;
     @OneToOne(cascade = {CascadeType.ALL})
      @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     public String getCpf() {
         return cpf;

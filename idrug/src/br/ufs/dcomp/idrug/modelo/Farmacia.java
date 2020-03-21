@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class Farmacia implements EntidadeBase, TipoUsuario {
     private String cnpj;
     @OneToOne
    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     public String getCnpj() {
         return cnpj;

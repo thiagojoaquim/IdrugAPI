@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
+
+import java.io.Serializable;
 
 /**
  *
  * @author thiag
  */
-public interface EntidadeBase {            
+public interface EntidadeBase extends Serializable{            
 }

@@ -1,4 +1,4 @@
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -23,6 +23,8 @@ public class Usuario implements EntidadeBase, TipoUsuario {
     private int idUsuario;
     @Column(name = "isativo")
     private boolean isAtivo;
+    @Column(name = "email")
+    private String email;
 
     public String getNome() {
         return nome;
@@ -63,6 +65,12 @@ public class Usuario implements EntidadeBase, TipoUsuario {
     public void setIsativo(boolean isativo) {
         this.isAtivo = isativo;
     }
-    
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }                
 }

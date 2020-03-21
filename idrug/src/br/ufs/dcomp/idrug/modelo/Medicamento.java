@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufs.dcomp.idrug.to;
+package br.ufs.dcomp.idrug.modelo;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
- *
- * @author thiag
- */
-public class Medicamento {
-    
+@Entity
+@Table(name = "medicamento")
+public class Medicamento implements EntidadeBase{
+    @Id
     private String produto;
-    private Long dosagem;
-    private List<String> substancias;
+    @Id
+    private String dosagem;
+    private String substancia;
     private String tarja;
 
     public String getProduto() {
@@ -26,20 +27,20 @@ public class Medicamento {
         this.produto = produto;
     }
 
-    public Long getDosagem() {
+    public String getDosagem() {
         return dosagem;
     }
 
-    public void setDosagem(Long dosagem) {
+    public void setDosagem(String dosagem) {
         this.dosagem = dosagem;
     }
 
-    public List<String> getSubstancias() {
-        return substancias;
+    public String getSubstancias() {
+        return substancia;
     }
 
-    public void setSubstancias(List<String> substancias) {
-        this.substancias = substancias;
+    public void setSubstancias(String substancias) {
+        this.substancia = substancias;
     }
 
     public String getTarja() {

@@ -7,8 +7,10 @@ package br.ufs.dcomp.idrug.webservice;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
+import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
+import java.util.List;
 
 /**
  *
@@ -16,19 +18,30 @@ import br.ufs.dcomp.idrug.to.UsuarioTO;
  */
 public class IdrugWSGenerico implements IdrugWS {
 
+    private FacadeWS facade;
+
+    public IdrugWSGenerico() {
+        facade = new FacadeWS();
+    }
+
     @Override
     public void cadastrarFarmacia(FarmaciaTO farmaciaTO) throws IdrugException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        facade.cadastrarFarmacia(farmaciaTO);
     }
 
     @Override
     public void cadastrarPaciente(PacienteTO pacienteTO) throws IdrugException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        facade.cadastrarPaciente(pacienteTO);
     }
 
     @Override
-    public boolean validarUsuario(UsuarioTO usuarioTO) throws IdrugException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean validarUsuario(UsuarioTO usuarioTO, String identificador) throws IdrugException {
+        return facade.validarUsuario(usuarioTO, identificador);
     }
-    
+
+    @Override
+    public List<MedicamentoTO> resgatarMedicamentos() throws IdrugException {
+        return facade.resgatarMedicamentos();
+    }
+
 }

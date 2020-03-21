@@ -5,7 +5,7 @@
  */
 package br.ufs.dcomp.idrug.factory;
 
-import br.ufs.dcomp.idrug.to.EntidadeBase;
+import br.ufs.dcomp.idrug.modelo.EntidadeBase;
 
 /**
  *

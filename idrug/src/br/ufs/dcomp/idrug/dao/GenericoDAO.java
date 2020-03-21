@@ -5,8 +5,10 @@
  */
 package br.ufs.dcomp.idrug.dao;
 
-import br.ufs.dcomp.idrug.to.EntidadeBase;
+import br.ufs.dcomp.idrug.modelo.EntidadeBase;
+import br.ufs.dcomp.idrug.modelo.Usuario;
 import br.ufs.dcomp.idrug.util.Validar;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -32,7 +34,7 @@ public class GenericoDAO<T extends EntidadeBase> {
             comecarTransacao();
             entityManager.persist(entidade);
             commitar();
-        } catch (Exception e) {
+        } catch (Exception e) { 
             rollback();
             throw e;
         }
@@ -80,10 +82,12 @@ public class GenericoDAO<T extends EntidadeBase> {
 
     public void commitar() {
         getEntityManager().getTransaction().commit();
+          getEntityManager().close();
     }
 
     public void rollback() {
         getEntityManager().getTransaction().rollback();
     }
+    
 
 }
