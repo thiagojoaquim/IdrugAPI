@@ -34,11 +34,12 @@ public class UsuarioDAO<T extends TipoUsuario> extends GenericoDAO {
 
     protected <T extends TipoUsuario> T resgatarUsuario(String identificador,
             String senha, String sql, Class<T> clazz) {
+        comecarTransacao();
         Query query = getEntityManager().createNativeQuery(sql, clazz);
         query.setParameter("identificador", identificador);
-        query.setParameter("Senha", senha);
+        query.setParameter("senha", senha);
+        commitar();
         return clazz.cast(query.getResultList().get(0));
-
     }
 
 }

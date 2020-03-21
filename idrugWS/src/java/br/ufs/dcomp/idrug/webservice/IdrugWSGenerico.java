@@ -44,5 +44,4 @@ public class IdrugWSGenerico implements IdrugWS {
     public List<MedicamentoTO> resgatarMedicamentos() throws IdrugException {
         return facade.resgatarMedicamentos();
     }
-
 }

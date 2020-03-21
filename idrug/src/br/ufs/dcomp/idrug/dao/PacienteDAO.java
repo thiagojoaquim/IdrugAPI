@@ -16,7 +16,7 @@ public class PacienteDAO extends UsuarioDAO<Paciente> {
 
     public Paciente resgatarPaciente(Paciente paciente) {
         String sql = " SELECT * FROM idrugdb.USUARIO u JOIN idrugdb.PACIENTE f on ( f.usuario_idusuario = U.idusuario) "
-                + "where CPF = :identificador and senha = :senha";
+                + "where CPF = :identificador and senhausuario = :senha";
         return super.resgatarUsuario(paciente.getCpf(), paciente.getUsuario().getSenha(), sql, Paciente.class);
 
     }

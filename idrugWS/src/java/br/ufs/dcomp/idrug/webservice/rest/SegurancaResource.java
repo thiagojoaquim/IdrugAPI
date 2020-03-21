@@ -6,15 +6,16 @@
 package br.ufs.dcomp.idrug.webservice.rest;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
-import br.ufs.dcomp.idrug.to.FarmaciaTO;
-import br.ufs.dcomp.idrug.to.PacienteTO;
+import br.ufs.dcomp.idrug.to.UsuarioTO;
+import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
+import br.ufs.dcomp.idrug.webservice.FacadeWS;
 import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -28,11 +29,12 @@ public class SegurancaResource extends IdrugWSGenerico {
     @Context
     private UriInfo context;
 
- 
-   
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    
-    public void validarUsuario(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/validar")
+    public UsuarioTO validarUsuario(ValidarUsuarioTO validarUsuarioTO) throws IdrugException {
+        return super.validarUsuario(validarUsuarioTO);
     }
 }

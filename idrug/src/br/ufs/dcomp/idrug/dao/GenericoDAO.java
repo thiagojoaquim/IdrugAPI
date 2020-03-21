@@ -34,7 +34,7 @@ public class GenericoDAO<T extends EntidadeBase> {
             comecarTransacao();
             entityManager.persist(entidade);
             commitar();
-        } catch (Exception e) { 
+        } catch (Exception e) {
             rollback();
             throw e;
         }
@@ -82,12 +82,11 @@ public class GenericoDAO<T extends EntidadeBase> {
 
     public void commitar() {
         getEntityManager().getTransaction().commit();
-          getEntityManager().close();
+
     }
 
     public void rollback() {
         getEntityManager().getTransaction().rollback();
     }
-    
 
 }

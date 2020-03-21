@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author thiag
  */
+@Path("/api/usuario")
 public class UsuarioResource extends IdrugWSGenerico {
 
     @POST

@@ -51,23 +51,21 @@ public class SegurancaBO extends GenericoBO {
 
         try {
             TipoUsuario usuario;
-            String hashSenha = hashCode(senha + identificador);
-            if (hashSenha.equals(senha)) {
-                if (Validar.cpf(identificador)) {
-                    PacienteDAO pacienteDAO = (PacienteDAO) getFabricaDAO().criar(PacienteDAO.class);
-                    Paciente paciente = (Paciente) getFabricaTO().criar(Paciente.class);
-                    paciente.setCpf(identificador);
-                    paciente.getUsuario().setSenha(hashSenha);
-                    return pacienteDAO.resgatarPaciente(paciente);
-                } else if (Validar.cnpj(identificador)) {
-                    Farmacia farmacia = (Farmacia) getFabricaTO().criar(Farmacia.class);
-                    FarmaciaDAO farmaciaDAO = (FarmaciaDAO) getFabricaDAO().criar(FarmaciaDAO.class);
-                    farmacia.setCnpj(senha);
-                    farmacia.getUsuario().setSenha(hashSenha);
-                    return farmaciaDAO.resgatarFarmacia(farmacia);
-                } else {
-                    throw IdrugExceptionHelper.criarExcecao(Excecao.DADOS_INFORMADOS_INCORRETOS);
-                }
+            String hashSenha = hashCode(identificador + senha);
+
+            if (Validar.cpf(identificador)) {
+                PacienteDAO pacienteDAO = (PacienteDAO) getFabricaDAO().criar(PacienteDAO.class);
+                Paciente paciente = (Paciente) getFabricaTO().criar(Paciente.class);
+                paciente.setCpf(identificador);
+                paciente.getUsuario().setSenha(hashSenha);
+                return pacienteDAO.resgatarPaciente(paciente);
+            } else if (Validar.cnpj(identificador)) {
+                Farmacia farmacia = (Farmacia) getFabricaTO().criar(Farmacia.class);
+                FarmaciaDAO farmaciaDAO = (FarmaciaDAO) getFabricaDAO().criar(FarmaciaDAO.class);
+                farmacia.setCnpj(senha);
+                farmacia.getUsuario().setSenha(hashSenha);
+                return farmaciaDAO.resgatarFarmacia(farmacia);
+
             } else {
                 throw new IdrugException(Excecao.USUARIO_SENHA_INVALIDO.mensagem, Excecao.USUARIO_SENHA_INVALIDO.codigo);
             }
