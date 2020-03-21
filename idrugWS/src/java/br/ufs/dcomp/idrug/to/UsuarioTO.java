@@ -13,11 +13,12 @@ import java.util.Date;
  * @author thiag
  */
 public class UsuarioTO implements Serializable {
-  
+
     private String nome;
     private String senha;
     private String email;
-    
+    private int id;
+
     public String getNome() {
         return nome;
     }
@@ -26,7 +27,6 @@ public class UsuarioTO implements Serializable {
         this.nome = nome;
     }
 
-   
     public String getSenha() {
         return senha;
     }
@@ -42,6 +42,12 @@ public class UsuarioTO implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

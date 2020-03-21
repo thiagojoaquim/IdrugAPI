@@ -2,12 +2,18 @@ package br.ufs.dcomp.idrug.webservice;
 
 import br.ufs.dcomp.idrug.bo.MedicamentoBO;
 import br.ufs.dcomp.idrug.bo.SegurancaBO;
+import br.ufs.dcomp.idrug.constantes.Excecao;
 import br.ufs.dcomp.idrug.exception.IdrugException;
+import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
+import br.ufs.dcomp.idrug.modelo.Farmacia;
 import br.ufs.dcomp.idrug.modelo.Medicamento;
+import br.ufs.dcomp.idrug.modelo.Paciente;
+import br.ufs.dcomp.idrug.modelo.TipoUsuario;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
+import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +33,27 @@ public class FacadeWS {
                 pacienteTO.getSenha(), pacienteTO.getEmail(), pacienteTO.getDataNascimento());
     }
 
-    public boolean validarUsuario(UsuarioTO usuario, String identificador) throws IdrugException {
+    public UsuarioTO validarUsuario(ValidarUsuarioTO validarUsuarioTO) throws IdrugException {
         SegurancaBO objBO = SegurancaBO.getInstancia();
-        return objBO.validarUsuario(identificador, usuario.getSenha());
+        TipoUsuario usuario = objBO.validarUsuario(validarUsuarioTO.getIdentificador(), validarUsuarioTO.getSenha());
+        if (usuario instanceof Farmacia) {
+            Farmacia farmacia = (Farmacia) usuario;
+            FarmaciaTO farmaciaTO = new FarmaciaTO();
+            farmaciaTO.setCnpj(farmacia.getCnpj());
+            farmaciaTO.setEmail(farmacia.getUsuario().getEmail());
+            farmaciaTO.setNome(farmacia.getUsuario().getNome());
+            farmaciaTO.setId(farmacia.getUsuario().getIdUsuario());
+            return farmaciaTO;
+        } else if (usuario instanceof Paciente) {
+            Paciente paciente = (Paciente) usuario;
+            PacienteTO pacienteTO = new PacienteTO();
+            pacienteTO.setCpf(paciente.getCpf());
+            pacienteTO.setEmail(paciente.getUsuario().getEmail());
+            pacienteTO.setNome(paciente.getUsuario().getNome());
+            pacienteTO.setId(paciente.getUsuario().getIdUsuario());
+            return pacienteTO;
+        }
+        throw IdrugExceptionHelper.criarExcecao(Excecao.ERRO_GENERICO);
     }
 
     public List<MedicamentoTO> resgatarMedicamentos() throws IdrugException {

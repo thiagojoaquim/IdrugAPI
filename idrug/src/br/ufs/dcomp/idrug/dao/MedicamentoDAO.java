@@ -6,7 +6,6 @@
 package br.ufs.dcomp.idrug.dao;
 
 import br.ufs.dcomp.idrug.modelo.Medicamento;
-import br.ufs.dcomp.idrug.modelo.Usuario;
 import java.util.List;
 import javax.persistence.Query;
 

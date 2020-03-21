@@ -5,34 +5,35 @@
  */
 package br.ufs.dcomp.idrug.webservice.rest;
 
+import br.ufs.dcomp.idrug.exception.IdrugException;
+import br.ufs.dcomp.idrug.to.FarmaciaTO;
+import br.ufs.dcomp.idrug.to.PacienteTO;
+import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Produces;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author thiag
  */
-public class UsuarioResource {
-        /**
-     * Retrieves representation of an instance of br.ufs.dcomp.idrug.webservice.SegurancaResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+public class UsuarioResource extends IdrugWSGenerico {
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/cadastrar-paciente")
+    public void cadastrarPaciente(PacienteTO pacienteTO) throws IdrugException {
+        super.cadastrarPaciente(pacienteTO);
     }
 
-    /**
-     * PUT method for updating or creating an instance of SegurancaResource
-     * @param content representation for the resource
-     */
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Override
+    @Path("/cadastrar-farmacia")
+    public void cadastrarFarmacia(FarmaciaTO farmaciaTO) throws IdrugException {
+        super.cadastrarFarmacia(farmaciaTO);
     }
+
 }

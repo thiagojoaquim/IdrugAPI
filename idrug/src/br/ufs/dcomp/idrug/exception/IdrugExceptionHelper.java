@@ -29,4 +29,8 @@ public class IdrugExceptionHelper {
             return new IdrugException(excecao.mensagem, excecao.codigo, ex.getCause());
         }
     }
+
+    public static IdrugException criarExcecao(Excecao excecao) throws IdrugException {
+        return new IdrugException(excecao.mensagem, excecao.codigo);
+    }
 }

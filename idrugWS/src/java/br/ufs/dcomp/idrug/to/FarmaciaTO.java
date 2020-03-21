@@ -15,6 +15,7 @@ import java.util.Objects;
 public class FarmaciaTO extends UsuarioTO {
     
     private String cnpj;
+  
 
     public String getCnpj() {
         return cnpj;
@@ -41,5 +42,4 @@ public class FarmaciaTO extends UsuarioTO {
         }
         return true;
     }    
-    
 }

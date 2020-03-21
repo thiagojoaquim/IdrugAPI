@@ -18,9 +18,8 @@ public class FabricaDAO implements FabricaAbstrata<GenericoDAO> {
 
     @Override
     public GenericoDAO criar(Class<? extends GenericoDAO> tipo) throws Exception {
-        return tipo.newInstance();
+        return tipo.cast(tipo.newInstance());
 
     }
 
-    
 }

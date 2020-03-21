@@ -26,6 +26,7 @@ public class Farmacia implements EntidadeBase, TipoUsuario {
     @OneToOne
    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     private Usuario usuario = new Usuario();
+  
 
     public String getCnpj() {
         return cnpj;

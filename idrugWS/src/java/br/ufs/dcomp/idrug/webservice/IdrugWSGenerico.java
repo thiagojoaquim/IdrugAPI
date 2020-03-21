@@ -10,6 +10,7 @@ import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
+import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.List;
 
 /**
@@ -35,8 +36,8 @@ public class IdrugWSGenerico implements IdrugWS {
     }
 
     @Override
-    public boolean validarUsuario(UsuarioTO usuarioTO, String identificador) throws IdrugException {
-        return facade.validarUsuario(usuarioTO, identificador);
+    public UsuarioTO validarUsuario(ValidarUsuarioTO validarUsuarioTO) throws IdrugException {
+        return facade.validarUsuario(validarUsuarioTO);
     }
 
     @Override

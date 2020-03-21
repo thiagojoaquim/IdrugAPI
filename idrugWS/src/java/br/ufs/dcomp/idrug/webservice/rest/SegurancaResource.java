@@ -29,24 +29,10 @@ public class SegurancaResource extends IdrugWSGenerico {
     private UriInfo context;
 
  
+   
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Override
-    @Path("/cadastrar-paciente")
-    public void cadastrarPaciente(PacienteTO pacienteTO) throws IdrugException {
-        super.cadastrarPaciente(pacienteTO);
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Override
-    @Path("/cadastrar-farmacia")
-    public void cadastrarFarmacia(FarmaciaTO farmaciaTO) throws IdrugException {
-        super.cadastrarFarmacia(farmaciaTO);
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    
+    public void validarUsuario(String content) {
     }
 }
