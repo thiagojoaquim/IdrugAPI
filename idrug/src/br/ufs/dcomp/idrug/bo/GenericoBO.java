@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufs.dcomp.idrug.bo;
 
 import br.ufs.dcomp.idrug.constantes.FabricaConstantes;
@@ -13,12 +8,7 @@ import br.ufs.dcomp.idrug.util.Validar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import sun.security.jca.GetInstance;
 
-/**
- *
- * @author thiag
- */
 public class GenericoBO {
 
     private FabricaTO fabricaTO;

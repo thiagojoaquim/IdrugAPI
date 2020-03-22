@@ -1,25 +1,38 @@
 package br.ufs.dcomp.idrug.webservice;
 
+import br.ufs.dcomp.idrug.bo.DoacaoBO;
 import br.ufs.dcomp.idrug.bo.MedicamentoBO;
 import br.ufs.dcomp.idrug.bo.SegurancaBO;
 import br.ufs.dcomp.idrug.constantes.Excecao;
+import br.ufs.dcomp.idrug.constantes.FabricaConstantes;
+import br.ufs.dcomp.idrug.dao.FabricaDAO;
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
+import br.ufs.dcomp.idrug.factory.FabricaProvedor;
+import br.ufs.dcomp.idrug.factory.FabricaTO;
 import br.ufs.dcomp.idrug.modelo.Farmacia;
+import br.ufs.dcomp.idrug.modelo.Interesse;
 import br.ufs.dcomp.idrug.modelo.Medicamento;
 import br.ufs.dcomp.idrug.modelo.Paciente;
 import br.ufs.dcomp.idrug.modelo.TipoUsuario;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
+import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
 import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FacadeWS {
 
+    private FabricaTO fabricaModelo;
+    private FabricaDAO fabricaDAO;
+
     public FacadeWS() {
+        fabricaModelo = (FabricaTO) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_TO);
     }
 
     public void cadastrarFarmacia(FarmaciaTO farmaciaTO) throws IdrugException {
@@ -69,5 +82,39 @@ public class FacadeWS {
             resp.add(medicamentoTO);
         }
         return resp;
+    }
+
+    public void cadastrarInteresse(InteresseTO interesseTO) throws IdrugException {
+        DoacaoBO doacao = DoacaoBO.getInstancia();
+        try {
+            Interesse interesse = (Interesse) fabricaModelo.criar(Interesse.class);
+            Paciente paciente = (Paciente) fabricaModelo.criar(Paciente.class);
+            Medicamento medicamento = (Medicamento) fabricaModelo.criar(Medicamento.class);
+            medicamento.setDosagem(interesseTO.getDosagem());
+            medicamento.setProduto(interesseTO.getProduto());
+            paciente.setCpf(interesseTO.getCpf());
+            interesse.setMedicamento(medicamento);
+            interesse.setPaciente(paciente);
+            doacao.cadastrarInteresse(interesse);
+        } catch (Exception ex) {
+            IdrugExceptionHelper.getExcecao(ex);
+        }
+
+    }
+
+    public List<InteresseTO> resgatarInteresse(String cpf) throws IdrugException {
+        DoacaoBO doacao = DoacaoBO.getInstancia();
+        List<Interesse> interesses = doacao.resgatarInteresse(cpf);
+        List<InteresseTO> interessesTO = new ArrayList<>();
+        InteresseTO interesseTO;
+        for (Interesse interesse : interesses) {
+            interesseTO = new InteresseTO();
+            interesseTO.setDataInteresse(interesse.getData());
+            interesseTO.setDosagem(interesse.getMedicamento().getDosagem());
+            interesseTO.setProduto(interesse.getMedicamento().getProduto());
+            interesseTO.setCpf(cpf);
+            interessesTO.add(interesseTO);
+        }
+        return interessesTO;
     }
 }

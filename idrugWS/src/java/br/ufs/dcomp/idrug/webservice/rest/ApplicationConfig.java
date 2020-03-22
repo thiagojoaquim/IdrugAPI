@@ -24,6 +24,7 @@ public class ApplicationConfig extends Application {
     }
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(br.ufs.dcomp.idrug.webservice.rest.DoacaoResource.class);
         resources.add(br.ufs.dcomp.idrug.webservice.rest.MedicamentoResource.class);
         resources.add(br.ufs.dcomp.idrug.webservice.rest.SegurancaResource.class);
         resources.add(br.ufs.dcomp.idrug.webservice.rest.UsuarioResource.class);

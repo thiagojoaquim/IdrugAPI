@@ -26,7 +26,6 @@ public class MedicamentoResource extends IdrugWSGenerico {
     @Override
     @Path("/resgatar")
     public List<MedicamentoTO> resgatarMedicamentos() throws IdrugException {
-        FacadeWS fachada = new FacadeWS();
-        return fachada.resgatarMedicamentos();
+        return super.resgatarMedicamentos();
     }
 }

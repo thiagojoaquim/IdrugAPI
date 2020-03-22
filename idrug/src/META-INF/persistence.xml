@@ -13,18 +13,17 @@
         <class>br.ufs.dcomp.idrug.modelo.Usuario</class>
         <class>br.ufs.dcomp.idrug.modelo.Paciente</class>
         <class>br.ufs.dcomp.idrug.modelo.Medicamento</class>
+        <class>br.ufs.dcomp.idrug.modelo.Interesse</class>
         <properties>
             <!-- Propriedades JDBC -->
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>            
             <!-- Configurações específicas do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> 
             <property name="hibernate.default_schema" value="idrugdb"/> 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-           
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>           
         </properties>
     </persistence-unit>
 </persistence>
