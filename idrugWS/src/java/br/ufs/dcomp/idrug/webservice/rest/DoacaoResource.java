@@ -6,6 +6,8 @@
 package br.ufs.dcomp.idrug.webservice.rest;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
+import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import java.util.List;
@@ -50,8 +52,23 @@ public class DoacaoResource extends IdrugWSGenerico {
     @Consumes(MediaType.APPLICATION_JSON)
     @Override
     @Path("/interesse/deletar")
-    public void removerInteresse(InteresseTO interesseTO) throws IdrugException {
-        super.removerInteresse(interesseTO);
+    public void removerInteresse(@QueryParam("id") int id) throws IdrugException {
+        super.removerInteresse(id);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/resgatar")
+    public List<DoacaoTO> resgatarDoacoes(@QueryParam("cpf") String cpf) throws IdrugException {
+        return super.resgatarDoacoes(cpf);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/coleta/resgatar")
+    public List<ColetaTO> resgatarColetas(@QueryParam("cpf") String cpf) throws IdrugException {
+        return super.resgatarColetas(cpf);
+    }
 }

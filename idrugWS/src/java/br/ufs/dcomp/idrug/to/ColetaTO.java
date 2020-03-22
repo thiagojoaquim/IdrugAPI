@@ -1,18 +1,16 @@
 package br.ufs.dcomp.idrug.to;
 
-import java.util.Date;
-
 /**
  *
  * @author thiag
  */
-public class InteresseTO {
+public class ColetaTO {
 
     private String cpf;
+    private String cnpj;
+    private int id;
     private String produto;
     private String dosagem;
-    private Date dataInteresse;
-    private int id;
 
     public String getCpf() {
         return cpf;
@@ -20,6 +18,22 @@ public class InteresseTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProduto() {
@@ -37,23 +51,5 @@ public class InteresseTO {
     public void setDosagem(String dosagem) {
         this.dosagem = dosagem;
     }
-
-    public Date getDataInteresse() {
-        return dataInteresse;
-    }
-
-    public void setDataInteresse(Date dataInteresse) {
-        this.dataInteresse = dataInteresse;
-    }        
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
 
 }

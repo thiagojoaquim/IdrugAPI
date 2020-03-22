@@ -1,6 +1,5 @@
 package br.ufs.dcomp.idrug.modelo;
 
-import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,24 +9,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "doacoes")
-public class Doacao implements EntidadeBase {
+@Table(name = "aguardando_coleta")
+public class Coleta implements EntidadeBase {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paciente_cpf", referencedColumnName = "cpf")
-    private Paciente paciente = new Paciente();
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "farmacia_cnpj", referencedColumnName = "cnpj")
-    private Farmacia farmacia = new Farmacia();
+    private Paciente paciente;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medicamento_produto", referencedColumnName = "produto")
     @JoinColumn(name = "medicamento_dosagem", referencedColumnName = "dosagem")
-    private Medicamento medicamento = new Medicamento();
-    @Column(name = "datadoacao")
-    private Date dataDoacao;
+    private Medicamento medicamento;
     @Id
-    @Column(name = "id_doacao")
+    @Column(name = "id_coleta")
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "farmacia_cnpj", referencedColumnName = "cnpj")
+    private Farmacia farmacia;
+    @Column(name = "situacao")
+    private int situacao;
 
     public Paciente getPaciente() {
         return paciente;
@@ -35,14 +34,6 @@ public class Doacao implements EntidadeBase {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
-    }
-
-    public Farmacia getFarmacia() {
-        return farmacia;
-    }
-
-    public void setFarmacia(Farmacia farmacia) {
-        this.farmacia = farmacia;
     }
 
     public Medicamento getMedicamento() {
@@ -53,14 +44,6 @@ public class Doacao implements EntidadeBase {
         this.medicamento = medicamento;
     }
 
-    public Date getDataDoacao() {
-        return dataDoacao;
-    }
-
-    public void setDataDoacao(Date dataDoacao) {
-        this.dataDoacao = dataDoacao;
-    }
-
     public int getId() {
         return id;
     }
@@ -69,4 +52,20 @@ public class Doacao implements EntidadeBase {
         this.id = id;
     }
 
+    public Farmacia getFarmacia() {
+        return farmacia;
+    }
+
+    public void setFarmacia(Farmacia farmacia) {
+        this.farmacia = farmacia;
+    }
+
+    public int getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(int situacao) {
+        this.situacao = situacao;
+    }
+    
 }

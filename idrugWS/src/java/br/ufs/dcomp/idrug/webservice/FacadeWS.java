@@ -10,11 +10,15 @@ import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.factory.FabricaProvedor;
 import br.ufs.dcomp.idrug.factory.FabricaTO;
+import br.ufs.dcomp.idrug.modelo.Coleta;
+import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Farmacia;
 import br.ufs.dcomp.idrug.modelo.Interesse;
 import br.ufs.dcomp.idrug.modelo.Medicamento;
 import br.ufs.dcomp.idrug.modelo.Paciente;
 import br.ufs.dcomp.idrug.modelo.TipoUsuario;
+import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
@@ -23,8 +27,6 @@ import br.ufs.dcomp.idrug.to.UsuarioTO;
 import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FacadeWS {
 
@@ -113,28 +115,54 @@ public class FacadeWS {
             interesseTO.setDosagem(interesse.getMedicamento().getDosagem());
             interesseTO.setProduto(interesse.getMedicamento().getProduto());
             interesseTO.setCpf(cpf);
+            interesseTO.setId(interesse.getIdInteresse());
             interessesTO.add(interesseTO);
         }
         return interessesTO;
     }
 
-    public void deletarInteresse(InteresseTO interesseTO) throws IdrugException {
+    public void deletarInteresse(int id) throws IdrugException {
 
         DoacaoBO doacao = DoacaoBO.getInstancia();
         Interesse interesse;
         try {
-            interesse = (Interesse) fabricaModelo.criar(Interesse.class);
-
-            Paciente paciente = (Paciente) fabricaModelo.criar(Paciente.class);
-            Medicamento medicamento = (Medicamento) fabricaModelo.criar(Medicamento.class);
-            medicamento.setDosagem(interesseTO.getDosagem());
-            medicamento.setProduto(interesseTO.getProduto());
-            paciente.setCpf(interesseTO.getCpf());
-            interesse.setMedicamento(medicamento);
-            interesse.setPaciente(paciente);
-            doacao.deletarInteresse(interesse);
+          
+            doacao.deletarInteresse(id);
         } catch (Exception ex) {
             throw IdrugExceptionHelper.getExcecao(ex);
         }
+    }
+
+    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException {
+        DoacaoBO doacaoBO = DoacaoBO.getInstancia();
+        List<Doacao> doacoes = doacaoBO.resgatarDoacoes(cpf);
+        List<DoacaoTO> doacoesTO = new ArrayList<>();
+        DoacaoTO doacaoTO;
+        for (Doacao doacao : doacoes) {
+            doacaoTO = new DoacaoTO();
+            doacaoTO.setData(doacao.getDataDoacao());
+            doacaoTO.setDosagem(doacao.getMedicamento().getDosagem());
+            doacaoTO.setProduto(doacao.getMedicamento().getProduto());
+            doacaoTO.setCpf(cpf);
+            doacaoTO.setId(doacao.getId());
+            doacoesTO.add(doacaoTO);
+        }
+        return doacoesTO;
+    }
+
+    public List<ColetaTO> resgatarColetas(String cpf) throws IdrugException {
+        DoacaoBO doacaoBO = DoacaoBO.getInstancia();
+        List<Coleta> coletas = doacaoBO.resgatarColetas(cpf);
+        List<ColetaTO> coletasTO = new ArrayList<>();
+        ColetaTO coletaTO;
+        for (Coleta coleta : coletas) {
+            coletaTO = new ColetaTO();
+            coletaTO.setId(coleta.getId());
+            coletaTO.setDosagem(coleta.getMedicamento().getDosagem());
+            coletaTO.setProduto(coleta.getMedicamento().getProduto());
+            coletaTO.setCpf(cpf);
+            coletasTO.add(coletaTO);
+        }
+        return coletasTO;
     }
 }

@@ -6,9 +6,13 @@
 package br.ufs.dcomp.idrug.bo;
 
 import br.ufs.dcomp.idrug.constantes.Excecao;
+import br.ufs.dcomp.idrug.dao.ColetaDAO;
+import br.ufs.dcomp.idrug.dao.DoacaoDAO;
 import br.ufs.dcomp.idrug.dao.InteresseDAO;
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
+import br.ufs.dcomp.idrug.modelo.Coleta;
+import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Interesse;
 import br.ufs.dcomp.idrug.util.Validar;
 import java.util.List;
@@ -62,13 +66,36 @@ public class DoacaoBO extends GenericoBO {
         }
     }
 
-    public void deletarInteresse(Interesse interesse) throws IdrugException {
-        validarInteresse(interesse);
+    public void deletarInteresse(int id) throws IdrugException {
         try {
             InteresseDAO interesseDAO = (InteresseDAO) getFabricaDAO().criar(InteresseDAO.class);
-            interesseDAO.deletar(interesse);
+            interesseDAO.deletar(id);
         } catch (Exception exception) {
-           throw IdrugExceptionHelper.getExcecao(exception);
+            throw IdrugExceptionHelper.getExcecao(exception);
+        }
+    }
+
+    public List<Doacao> resgatarDoacoes(String cpf) throws IdrugException {
+        if (!Validar.cpf(cpf)) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+        }
+        try {
+            DoacaoDAO doacaoDAO = (DoacaoDAO) getFabricaDAO().criar(DoacaoDAO.class);
+            return doacaoDAO.resgatarDoacoesPaciente(cpf);
+        } catch (Exception e) {
+            throw IdrugExceptionHelper.getExcecao(e);
+        }
+    }
+
+    public List<Coleta> resgatarColetas(String cpf) throws IdrugException {
+        if (!Validar.cpf(cpf)) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+        }
+        try {
+            ColetaDAO coletaDAO = (ColetaDAO) getFabricaDAO().criar(ColetaDAO.class);
+            return coletaDAO.resgatarColetas(cpf);
+        } catch (Exception e) {
+            throw IdrugExceptionHelper.getExcecao(e);
         }
     }
 }

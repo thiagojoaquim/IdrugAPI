@@ -2,7 +2,6 @@ package br.ufs.dcomp.idrug.webservice.rest;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
-import br.ufs.dcomp.idrug.webservice.FacadeWS;
 import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import java.util.List;
 import javax.ws.rs.GET;

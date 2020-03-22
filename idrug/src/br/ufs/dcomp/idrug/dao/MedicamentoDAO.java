@@ -13,14 +13,14 @@ import javax.persistence.Query;
  *
  * @author thiag
  */
-public class MedicamentoDAO extends GenericoDAO {
+public class MedicamentoDAO extends GenericoDAO<Medicamento> {
 
     public MedicamentoDAO() {
     }
 
     public List<Medicamento> resgatarMedicamentos() {
         comecarTransacao();
-        Query query = getEntityManager().createNativeQuery("SELECT DISTINCT ON (produto) produto,dosagem,substancia,tarja FROM medicamento", Medicamento.class);
+        Query query = getEntityManager().createNativeQuery("SELECT DISTINCT ON (produto) produto,dosagem,substancia,tarja FROM idrugdb.medicamento", Medicamento.class);
         List<Medicamento> medicamentos = query.getResultList();
         commitar();
         return medicamentos;

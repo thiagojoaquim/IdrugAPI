@@ -6,10 +6,8 @@
 package br.ufs.dcomp.idrug.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 
-/**
- *
- * @author thiag
- */
+
 public interface EntidadeBase extends Serializable{            
 }

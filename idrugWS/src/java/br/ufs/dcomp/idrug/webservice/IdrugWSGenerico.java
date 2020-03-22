@@ -1,6 +1,8 @@
 package br.ufs.dcomp.idrug.webservice;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
+import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
@@ -9,7 +11,7 @@ import br.ufs.dcomp.idrug.to.UsuarioTO;
 import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.List;
 
-public class IdrugWSGenerico implements IdrugWS {
+public  class IdrugWSGenerico implements IdrugWS {
 
     private FacadeWS facade;
 
@@ -48,7 +50,22 @@ public class IdrugWSGenerico implements IdrugWS {
     }
 
     @Override
-    public void removerInteresse(InteresseTO interesseTO) throws IdrugException {
-        facade.deletarInteresse(interesseTO);
+    public void removerInteresse(int id) throws IdrugException {
+        facade.deletarInteresse(id);
+    }
+
+    @Override
+    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException {
+        return facade.resgatarDoacoes(cpf);
+    }
+
+    @Override
+    public List<ColetaTO> resgatarColetas(String cpf) throws IdrugException {
+        return facade.resgatarColetas(cpf);
+    }
+
+    @Override
+    public void confirmarColeta(int idColeta) throws IdrugException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

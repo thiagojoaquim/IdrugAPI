@@ -1,6 +1,8 @@
 package br.ufs.dcomp.idrug.webservice;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
+import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
@@ -23,5 +25,11 @@ public interface IdrugWS {
 
     public List<InteresseTO> resgatarInteresses(String cpf) throws IdrugException;
 
-    public void removerInteresse(InteresseTO interesseTO) throws IdrugException;
+    public void removerInteresse(int id) throws IdrugException;
+
+    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException;
+
+    public List<ColetaTO> resgatarColetas(String cpf) throws IdrugException;
+
+    public void confirmarColeta(int idColeta) throws IdrugException;
 }
