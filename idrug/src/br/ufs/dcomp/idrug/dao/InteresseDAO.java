@@ -32,4 +32,21 @@ public class InteresseDAO extends GenericoDAO<Interesse> {
         return query.getResultList();
 
     }
+    
+     @Override
+    public void deletar(Interesse entidade) throws Exception {
+        try {
+            comecarTransacao();
+            Query query = getEntityManager().createNativeQuery("DELETE FROM idrugdb.registro_interesse where paciente_cpf =? and "
+                    + " medicamento_produto = ? and medicamento_dosagem = ?");
+            query.setParameter(1, entidade.getPaciente().getCpf());
+            query.setParameter(2, entidade.getMedicamento().getProduto());
+            query.setParameter(3, entidade.getMedicamento().getDosagem());
+            query.executeUpdate();
+            commitar();
+        } catch (Exception e) {
+            rollback();
+            throw e;
+        }
+    }
 }

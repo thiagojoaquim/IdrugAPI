@@ -46,4 +46,9 @@ public class IdrugWSGenerico implements IdrugWS {
     public List<InteresseTO> resgatarInteresses(String cpf) throws IdrugException {
         return facade.resgatarInteresse(cpf);
     }
+
+    @Override
+    public void removerInteresse(InteresseTO interesseTO) throws IdrugException {
+        facade.deletarInteresse(interesseTO);
+    }
 }

@@ -97,7 +97,7 @@ public class FacadeWS {
             interesse.setPaciente(paciente);
             doacao.cadastrarInteresse(interesse);
         } catch (Exception ex) {
-            IdrugExceptionHelper.getExcecao(ex);
+            throw IdrugExceptionHelper.getExcecao(ex);
         }
 
     }
@@ -116,5 +116,25 @@ public class FacadeWS {
             interessesTO.add(interesseTO);
         }
         return interessesTO;
+    }
+
+    public void deletarInteresse(InteresseTO interesseTO) throws IdrugException {
+
+        DoacaoBO doacao = DoacaoBO.getInstancia();
+        Interesse interesse;
+        try {
+            interesse = (Interesse) fabricaModelo.criar(Interesse.class);
+
+            Paciente paciente = (Paciente) fabricaModelo.criar(Paciente.class);
+            Medicamento medicamento = (Medicamento) fabricaModelo.criar(Medicamento.class);
+            medicamento.setDosagem(interesseTO.getDosagem());
+            medicamento.setProduto(interesseTO.getProduto());
+            paciente.setCpf(interesseTO.getCpf());
+            interesse.setMedicamento(medicamento);
+            interesse.setPaciente(paciente);
+            doacao.deletarInteresse(interesse);
+        } catch (Exception ex) {
+            throw IdrugExceptionHelper.getExcecao(ex);
+        }
     }
 }

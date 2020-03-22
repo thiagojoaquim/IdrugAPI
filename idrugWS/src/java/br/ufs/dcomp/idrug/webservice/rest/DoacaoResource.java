@@ -10,6 +10,7 @@ import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -43,6 +44,14 @@ public class DoacaoResource extends IdrugWSGenerico {
     @Path("/interesse/resgatar")
     public List<InteresseTO> resgatarInteresses(@QueryParam("cpf") String cpf) throws IdrugException {
         return super.resgatarInteresses(cpf);
+    }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/interesse/deletar")
+    public void removerInteresse(InteresseTO interesseTO) throws IdrugException {
+        super.removerInteresse(interesseTO);
     }
 
 }

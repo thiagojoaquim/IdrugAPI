@@ -16,18 +16,17 @@ public class Interesse implements EntidadeBase {
     @Id
     @Column(name = "id_interesse")
     private int idInteresse;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paciente_cpf", referencedColumnName = "cpf")
-    private Paciente Paciente;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    private Paciente Paciente = new Paciente();
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medicamento_produto", referencedColumnName = "produto")
     @JoinColumn(name = "medicamento_dosagem", referencedColumnName = "dosagem")
-    private Medicamento medicamento;
+    private Medicamento medicamento = new Medicamento();
     @Column(name = "datainteresse")
     private Date data;
     @Column(name = "receitamedica")
     private byte[] receita;
-  
 
     public int getId() {
         return idInteresse;
@@ -77,5 +76,4 @@ public class Interesse implements EntidadeBase {
         this.idInteresse = idInteresse;
     }
 
- 
 }

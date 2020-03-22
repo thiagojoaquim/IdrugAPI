@@ -20,7 +20,7 @@ public class MedicamentoDAO extends GenericoDAO {
 
     public List<Medicamento> resgatarMedicamentos() {
         comecarTransacao();
-        Query query = getEntityManager().createNativeQuery("SELECT distinct produto, dosagem, substancia, tarja FROM idrugdb.MEDICAMENTO", Medicamento.class);
+        Query query = getEntityManager().createNativeQuery("SELECT DISTINCT ON (produto) produto,dosagem,substancia,tarja FROM medicamento", Medicamento.class);
         List<Medicamento> medicamentos = query.getResultList();
         commitar();
         return medicamentos;

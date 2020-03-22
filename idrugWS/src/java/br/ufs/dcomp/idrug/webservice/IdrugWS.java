@@ -22,4 +22,6 @@ public interface IdrugWS {
     public void cadastrarInteresse(InteresseTO interesseTO) throws IdrugException;
 
     public List<InteresseTO> resgatarInteresses(String cpf) throws IdrugException;
+
+    public void removerInteresse(InteresseTO interesseTO) throws IdrugException;
 }
