@@ -9,16 +9,11 @@ import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.modelo.Farmacia;
 import br.ufs.dcomp.idrug.modelo.Paciente;
 import br.ufs.dcomp.idrug.modelo.TipoUsuario;
-import br.ufs.dcomp.idrug.modelo.Usuario;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import br.ufs.dcomp.idrug.util.Validar;
 import java.util.Date;
 
-/**
- *
- * @author thiag
- */
 public class SegurancaBO extends GenericoBO {
 
     private static SegurancaBO instancia;
