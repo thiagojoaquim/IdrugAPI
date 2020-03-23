@@ -15,12 +15,14 @@ import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Farmacia;
 import br.ufs.dcomp.idrug.modelo.Interesse;
 import br.ufs.dcomp.idrug.modelo.Medicamento;
+import br.ufs.dcomp.idrug.modelo.MedicamentoDisponivel;
 import br.ufs.dcomp.idrug.modelo.Paciente;
 import br.ufs.dcomp.idrug.modelo.TipoUsuario;
 import br.ufs.dcomp.idrug.to.ColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
+import br.ufs.dcomp.idrug.to.MedicamentoDisponivelTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
@@ -126,7 +128,7 @@ public class FacadeWS {
         DoacaoBO doacao = DoacaoBO.getInstancia();
         Interesse interesse;
         try {
-          
+
             doacao.deletarInteresse(id);
         } catch (Exception ex) {
             throw IdrugExceptionHelper.getExcecao(ex);
@@ -160,9 +162,27 @@ public class FacadeWS {
             coletaTO.setId(coleta.getId());
             coletaTO.setDosagem(coleta.getMedicamento().getDosagem());
             coletaTO.setProduto(coleta.getMedicamento().getProduto());
-            coletaTO.setCpf(cpf);
+            coletaTO.getFarmaciaTO().setCnpj(coleta.getFarmacia().getCnpj());
+            coletaTO.getFarmaciaTO().setNome(coleta.getFarmacia().getUsuario().getNome());
             coletasTO.add(coletaTO);
         }
         return coletasTO;
+    }
+
+    public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException {
+        MedicamentoBO medicamentoBO = MedicamentoBO.getInstancia();
+        List<MedicamentoDisponivel> medicamentos = medicamentoBO.resgatarMedicamentosDisponiveis(cnpj);
+        List<MedicamentoDisponivelTO> medicamentosDisponivelTO = new ArrayList<>();
+        MedicamentoDisponivelTO medicamentoDisponivelTO;
+        for (MedicamentoDisponivel medicamentoDisponivel : medicamentos) {
+            medicamentoDisponivelTO = new MedicamentoDisponivelTO();
+            medicamentoDisponivelTO.setId(medicamentoDisponivel.getId());
+            medicamentoDisponivelTO.setDosagem(medicamentoDisponivel.getMedicamento().getDosagem());
+            medicamentoDisponivelTO.setProduto(medicamentoDisponivel.getMedicamento().getProduto());
+            medicamentoDisponivelTO.setCnpj(medicamentoDisponivel.getFarmacia().getCnpj());
+            medicamentosDisponivelTO.add(medicamentoDisponivelTO);
+        }
+        return medicamentosDisponivelTO;
+
     }
 }

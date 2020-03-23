@@ -9,6 +9,7 @@ import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.to.ColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
+import br.ufs.dcomp.idrug.to.MedicamentoDisponivelTO;
 import br.ufs.dcomp.idrug.webservice.IdrugWSGenerico;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -70,5 +71,13 @@ public class DoacaoResource extends IdrugWSGenerico {
     @Path("/coleta/resgatar")
     public List<ColetaTO> resgatarColetas(@QueryParam("cpf") String cpf) throws IdrugException {
         return super.resgatarColetas(cpf);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/coleta/resgatar")
+    public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(@QueryParam("cnpj") String cnpj) throws IdrugException {
+        return super.resgatarMedicamentosDisponiveis(cnpj);
     }
 }

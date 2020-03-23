@@ -6,27 +6,29 @@ package br.ufs.dcomp.idrug.to;
  */
 public class ColetaTO {
 
-    private String cpf;
-    private String cnpj;
+    private PacienteTO paciente = new PacienteTO();
+    private FarmaciaTO farmaciaTO = new FarmaciaTO();
     private int id;
     private String produto;
     private String dosagem;
 
-    public String getCpf() {
-        return cpf;
+    public PacienteTO getPaciente() {
+        return paciente;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setPaciente(PacienteTO paciente) {
+        this.paciente = paciente;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public FarmaciaTO getFarmaciaTO() {
+        return farmaciaTO;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setFarmaciaTO(FarmaciaTO farmaciaTO) {
+        this.farmaciaTO = farmaciaTO;
     }
+
+  
 
     public int getId() {
         return id;

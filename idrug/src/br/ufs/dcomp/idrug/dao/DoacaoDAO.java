@@ -31,6 +31,8 @@ public class DoacaoDAO extends GenericoDAO<Doacao> {
         } catch (Exception e) {
             rollback();
             throw e;
+        } finally {
+            fecharConexao();
         }
     }
 
@@ -54,6 +56,8 @@ public class DoacaoDAO extends GenericoDAO<Doacao> {
         } catch (Exception e) {
             rollback();
             throw e;
+        } finally {
+            fecharConexao();
         }
     }
 }

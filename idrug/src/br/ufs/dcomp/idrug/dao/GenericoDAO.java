@@ -77,4 +77,9 @@ public class GenericoDAO<T extends EntidadeBase> {
     public void rollback() {
         getEntityManager().getTransaction().rollback();
     }
+    
+    public void fecharConexao() {
+        getEntityManager().close();
+        emf.close();
+    }
 }

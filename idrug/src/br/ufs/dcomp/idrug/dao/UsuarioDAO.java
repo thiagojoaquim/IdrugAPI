@@ -39,6 +39,7 @@ public class UsuarioDAO<T extends TipoUsuario> extends GenericoDAO {
         query.setParameter("identificador", identificador);
         query.setParameter("senha", senha);
         commitar();
+        fecharConexao();
         return clazz.cast(query.getResultList().get(0));
     }
 

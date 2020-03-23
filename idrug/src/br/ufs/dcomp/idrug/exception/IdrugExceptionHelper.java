@@ -6,6 +6,8 @@
 package br.ufs.dcomp.idrug.exception;
 
 import br.ufs.dcomp.idrug.constantes.Excecao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +19,7 @@ public class IdrugExceptionHelper {
         if (ex instanceof IdrugException) {
             return (IdrugException) ex;
         } else {
+            Logger.getLogger(IdrugExceptionHelper.class.getName()).log(Level.SEVERE, ex.getMessage());
             return new IdrugException(Excecao.ERRO_GENERICO.mensagem, Excecao.ERRO_GENERICO.codigo, ex.getCause());
         }
 
@@ -26,6 +29,7 @@ public class IdrugExceptionHelper {
         if (ex instanceof IdrugException) {
             return (IdrugException) ex;
         } else {
+            Logger.getLogger(IdrugExceptionHelper.class.getName()).log(Level.SEVERE, ex.getMessage());
             return new IdrugException(excecao.mensagem, excecao.codigo, ex.getCause());
         }
     }

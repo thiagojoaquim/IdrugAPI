@@ -15,6 +15,8 @@
         <class>br.ufs.dcomp.idrug.modelo.Medicamento</class>
         <class>br.ufs.dcomp.idrug.modelo.Interesse</class>
         <class>br.ufs.dcomp.idrug.modelo.Doacao</class>
+        <class>br.ufs.dcomp.idrug.modelo.Coleta</class>
+        <class>br.ufs.dcomp.idrug.modelo.MedicamentoDisponivel</class>
         <properties>
             <!-- Propriedades JDBC -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>            

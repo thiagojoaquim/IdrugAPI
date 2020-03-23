@@ -7,9 +7,11 @@ package br.ufs.dcomp.idrug.bo;
 
 import br.ufs.dcomp.idrug.constantes.Excecao;
 import br.ufs.dcomp.idrug.dao.MedicamentoDAO;
+import br.ufs.dcomp.idrug.dao.MedicamentoDisponivelDAO;
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.modelo.Medicamento;
+import br.ufs.dcomp.idrug.modelo.MedicamentoDisponivel;
 import br.ufs.dcomp.idrug.util.Validar;
 import java.util.List;
 
@@ -38,6 +40,29 @@ public class MedicamentoBO extends GenericoBO {
             return medicamento;
         } catch (IdrugException idrugException) {
             throw idrugException;
+        } catch (Exception exception) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS, exception);
+        }
+    }
+
+    public List<MedicamentoDisponivel> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException {
+        try {
+            MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO()
+                    .criar(MedicamentoDisponivelDAO.class);
+            List<MedicamentoDisponivel> medicamentos = medicamentoDisponivelDAO.resgatarMedicamentosDisponiveis(cnpj);
+            return medicamentos;
+        } catch (IdrugException idrugException) {
+            throw idrugException;
+        } catch (Exception exception) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS, exception);
+        }
+    }
+
+    public void cadastrarMedicamentosDisponiveis(MedicamentoDisponivel medicamentoDisponivel) throws IdrugException {
+        try {
+            MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO()
+                    .criar(MedicamentoDisponivelDAO.class);
+            medicamentoDisponivelDAO.salvar(medicamentoDisponivel);
         } catch (Exception exception) {
             throw IdrugExceptionHelper.criarExcecao(Excecao.NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS, exception);
         }

@@ -5,6 +5,7 @@ import br.ufs.dcomp.idrug.to.ColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
+import br.ufs.dcomp.idrug.to.MedicamentoDisponivelTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
@@ -66,6 +67,10 @@ public  class IdrugWSGenerico implements IdrugWS {
 
     @Override
     public void confirmarColeta(int idColeta) throws IdrugException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+    
+    public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException {
+        return facade.resgatarMedicamentosDisponiveis(cnpj);
     }
 }
