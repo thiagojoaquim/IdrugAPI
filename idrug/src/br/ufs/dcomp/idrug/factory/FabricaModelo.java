@@ -11,7 +11,7 @@ import br.ufs.dcomp.idrug.modelo.EntidadeBase;
  *
  * @author thiag
  */
-public class FabricaTO implements FabricaAbstrata<EntidadeBase> {
+public class FabricaModelo implements FabricaAbstrata<EntidadeBase> {
 
     @Override
     public EntidadeBase criar(Class<? extends EntidadeBase> tipo) throws Exception {

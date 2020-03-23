@@ -3,7 +3,7 @@ package br.ufs.dcomp.idrug.bo;
 import br.ufs.dcomp.idrug.constantes.FabricaConstantes;
 import br.ufs.dcomp.idrug.dao.FabricaDAO;
 import br.ufs.dcomp.idrug.factory.FabricaProvedor;
-import br.ufs.dcomp.idrug.factory.FabricaTO;
+import br.ufs.dcomp.idrug.factory.FabricaModelo;
 import br.ufs.dcomp.idrug.util.Validar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,18 +11,18 @@ import javax.persistence.Persistence;
 
 public class GenericoBO {
 
-    private FabricaTO fabricaTO;
+    private FabricaModelo fabricaTO;
     private FabricaDAO fabricaDAO;
     private EntityManager entityManager;
     private EntityManagerFactory emf;
 
     protected GenericoBO() {
         fabricaDAO = (FabricaDAO) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_DAO);
-        fabricaTO = (FabricaTO) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_TO);
+        fabricaTO = (FabricaModelo) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_MODELO);
 
     }
 
-    protected FabricaTO getFabricaTO() {
+    protected FabricaModelo getFabricaTO() {
         return this.fabricaTO;
     }
 

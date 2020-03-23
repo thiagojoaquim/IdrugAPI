@@ -9,7 +9,7 @@ import br.ufs.dcomp.idrug.dao.FabricaDAO;
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.factory.FabricaProvedor;
-import br.ufs.dcomp.idrug.factory.FabricaTO;
+import br.ufs.dcomp.idrug.factory.FabricaModelo;
 import br.ufs.dcomp.idrug.modelo.Coleta;
 import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Farmacia;
@@ -32,11 +32,11 @@ import java.util.List;
 
 public class FacadeWS {
 
-    private FabricaTO fabricaModelo;
+    private FabricaModelo fabricaModelo;
     private FabricaDAO fabricaDAO;
 
     public FacadeWS() {
-        fabricaModelo = (FabricaTO) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_TO);
+        fabricaModelo = (FabricaModelo) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_MODELO);
     }
 
     public void cadastrarFarmacia(FarmaciaTO farmaciaTO) throws IdrugException {

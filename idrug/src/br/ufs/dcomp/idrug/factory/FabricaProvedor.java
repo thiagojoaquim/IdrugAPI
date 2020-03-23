@@ -18,8 +18,8 @@ public class FabricaProvedor {
         switch (fabrica) {
             case (FabricaConstantes.FABRICA_DAO):
                 return new FabricaDAO();
-            case (FabricaConstantes.FABRICA_TO):
-                return new FabricaTO();
+            case (FabricaConstantes.FABRICA_MODELO):
+                return new FabricaModelo();
 
             default:
                 return null;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufs.dcomp.idrug.bo;
 
 import br.ufs.dcomp.idrug.constantes.Excecao;
@@ -58,14 +53,23 @@ public class SegurancaBO extends GenericoBO {
                 Paciente paciente = (Paciente) getFabricaTO().criar(Paciente.class);
                 paciente.setCpf(identificador);
                 paciente.getUsuario().setSenha(hashSenha);
-                return pacienteDAO.resgatarPaciente(paciente);
+                paciente = pacienteDAO.resgatarPaciente(paciente);
+                if (paciente == null) {
+                    throw IdrugExceptionHelper.criarExcecao(Excecao.PACIENTE_NAO_LOCALIZADO);
+                } else {
+                    return paciente;
+                }
             } else if (Validar.cnpj(identificador)) {
                 Farmacia farmacia = (Farmacia) getFabricaTO().criar(Farmacia.class);
                 FarmaciaDAO farmaciaDAO = (FarmaciaDAO) getFabricaDAO().criar(FarmaciaDAO.class);
                 farmacia.setCnpj(senha);
                 farmacia.getUsuario().setSenha(hashSenha);
-                return farmaciaDAO.resgatarFarmacia(farmacia);
-
+                farmacia = farmaciaDAO.resgatarFarmacia(farmacia);
+                if (farmacia == null) {
+                    throw IdrugExceptionHelper.criarExcecao(Excecao.FARMACIA_NAO_LOCALIZADA);
+                } else {
+                    return farmacia;
+                }
             } else {
                 throw new IdrugException(Excecao.USUARIO_SENHA_INVALIDO.mensagem, Excecao.USUARIO_SENHA_INVALIDO.codigo);
             }

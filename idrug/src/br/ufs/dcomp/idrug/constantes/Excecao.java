@@ -17,7 +17,9 @@ public enum Excecao {
     NAO_FOI_POSSIVEL_CADASTRAR_USUARIO("Não foi possível cadastrar o usuário informado.", "IDR004"),
     NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS("Não foi possível resgatar os medicamentos.", "IDR005"),
     DADOS_INFORMADOS_INCORRETOS("Dados incorretos.", "IDR006"),
-    ERRO_GENERICO("Não foi possível concluir a operação solicitada.", "IDR007");
+    ERRO_GENERICO("Não foi possível concluir a operação solicitada.", "IDR007"),
+    PACIENTE_NAO_LOCALIZADO("Paciente não localizado.", "IDR008"),
+    FARMACIA_NAO_LOCALIZADA("Farmacia não localizada.", "IDR009");
 
     public String mensagem;
     public String codigo;
