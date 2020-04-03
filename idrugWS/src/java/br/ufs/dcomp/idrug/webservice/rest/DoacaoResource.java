@@ -7,6 +7,7 @@ package br.ufs.dcomp.idrug.webservice.rest;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.ConfirmarColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
 import br.ufs.dcomp.idrug.to.MedicamentoDisponivelTO;
@@ -41,6 +42,13 @@ public class DoacaoResource extends IdrugWSGenerico {
         super.cadastrarInteresse(interesseTO);
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/coleta/confirmar")
+    public void confirmarColeta(ConfirmarColetaTO confirmarColetaTO) throws IdrugException {
+        super.confirmarColeta(confirmarColetaTO.getIdColeta(), confirmarColetaTO.getSituacao());
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Override
@@ -61,18 +69,18 @@ public class DoacaoResource extends IdrugWSGenerico {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     @Path("/resgatar")
-    public List<DoacaoTO> resgatarDoacoes(@QueryParam("cpf") String cpf) throws IdrugException {
-        return super.resgatarDoacoes(cpf);
+    public List<DoacaoTO> resgatarDoacoes(@QueryParam("identificador") String identificador) throws IdrugException {
+        return super.resgatarDoacoes(identificador);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     @Path("/coleta/resgatar")
-    public List<ColetaTO> resgatarColetas(@QueryParam("cpf") String cpf) throws IdrugException {
-        return super.resgatarColetas(cpf);
+    public List<ColetaTO> resgatarColetas(@QueryParam("identificador") String identificador) throws IdrugException {
+        return super.resgatarColetas(identificador);
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Override

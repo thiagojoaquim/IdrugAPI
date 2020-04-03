@@ -135,9 +135,9 @@ public class FacadeWS {
         }
     }
 
-    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException {
+    public List<DoacaoTO> resgatarDoacoes(String identificador) throws IdrugException {
         DoacaoBO doacaoBO = DoacaoBO.getInstancia();
-        List<Doacao> doacoes = doacaoBO.resgatarDoacoes(cpf);
+        List<Doacao> doacoes = doacaoBO.resgatarDoacoes(identificador);
         List<DoacaoTO> doacoesTO = new ArrayList<>();
         DoacaoTO doacaoTO;
         for (Doacao doacao : doacoes) {
@@ -145,7 +145,8 @@ public class FacadeWS {
             doacaoTO.setData(doacao.getDataDoacao());
             doacaoTO.setDosagem(doacao.getMedicamento().getDosagem());
             doacaoTO.setProduto(doacao.getMedicamento().getProduto());
-            doacaoTO.setCpf(cpf);
+            doacaoTO.setCpf(doacao.getPaciente().getCpf());
+            doacaoTO.setCnpj(doacao.getFarmacia().getCnpj());
             doacaoTO.setId(doacao.getId());
             doacoesTO.add(doacaoTO);
         }
@@ -164,6 +165,7 @@ public class FacadeWS {
             coletaTO.setProduto(coleta.getMedicamento().getProduto());
             coletaTO.getFarmaciaTO().setCnpj(coleta.getFarmacia().getCnpj());
             coletaTO.getFarmaciaTO().setNome(coleta.getFarmacia().getUsuario().getNome());
+            coletaTO.setSituacao(coleta.getSituacao());
             coletasTO.add(coletaTO);
         }
         return coletasTO;
@@ -184,5 +186,10 @@ public class FacadeWS {
         }
         return medicamentosDisponivelTO;
 
+    }
+
+    public void confirmarColeta(int idColeta, int situacao) throws IdrugException {
+        DoacaoBO doacaoBO = DoacaoBO.getInstancia();
+        doacaoBO.confirmarColeta(idColeta, situacao);
     }
 }

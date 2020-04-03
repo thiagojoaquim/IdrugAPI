@@ -5,6 +5,7 @@
  */
 package br.ufs.dcomp.idrug.bo;
 
+import br.ufs.dcomp.idrug.constantes.Constantes;
 import br.ufs.dcomp.idrug.constantes.Excecao;
 import br.ufs.dcomp.idrug.dao.ColetaDAO;
 import br.ufs.dcomp.idrug.dao.DoacaoDAO;
@@ -15,6 +16,7 @@ import br.ufs.dcomp.idrug.modelo.Coleta;
 import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Interesse;
 import br.ufs.dcomp.idrug.util.Validar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,25 +77,48 @@ public class DoacaoBO extends GenericoBO {
         }
     }
 
-    public List<Doacao> resgatarDoacoes(String cpf) throws IdrugException {
-        if (!Validar.cpf(cpf)) {
-            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+    public List<Doacao> resgatarDoacoes(String identificador) throws IdrugException {
+        if (!Validar.cpf(identificador) && !Validar.cnpj(identificador)) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.DADOS_INFORMADOS_INCORRETOS);
         }
         try {
             DoacaoDAO doacaoDAO = (DoacaoDAO) getFabricaDAO().criar(DoacaoDAO.class);
-            return doacaoDAO.resgatarDoacoesPaciente(cpf);
+            return doacaoDAO.resgatarDoacoes(identificador);
         } catch (Exception e) {
             throw IdrugExceptionHelper.getExcecao(e);
         }
     }
 
-    public List<Coleta> resgatarColetas(String cpf) throws IdrugException {
-        if (!Validar.cpf(cpf)) {
-            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+    public List<Coleta> resgatarColetas(String identificador) throws IdrugException {
+        if (!Validar.cpf(identificador) || !Validar.cnpj(identificador)) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.DADOS_INFORMADOS_INCORRETOS);
         }
         try {
             ColetaDAO coletaDAO = (ColetaDAO) getFabricaDAO().criar(ColetaDAO.class);
-            return coletaDAO.resgatarColetas(cpf);
+            return coletaDAO.resgatarColetas(identificador);
+        } catch (Exception e) {
+            throw IdrugExceptionHelper.getExcecao(e);
+        }
+    }
+
+
+    public void confirmarColeta(int idColeta, int situacao) throws IdrugException {
+
+        try {
+            ColetaDAO coletaDAO = (ColetaDAO) getFabricaDAO().criar(ColetaDAO.class);
+            if (!coletaDAO.confirmarColeta(idColeta, situacao)) {
+                throw IdrugExceptionHelper.criarExcecao(Excecao.COLETA_NAO_CONFIRMADA);
+            }
+            if (situacao == Constantes.STATUS_COLETA_CONCLUIDA) {
+                DoacaoDAO doacaoDAO = (DoacaoDAO) getFabricaDAO().criar(DoacaoDAO.class);
+                Doacao doacao = (Doacao) getFabricaModelo().criar(Doacao.class);
+                Coleta coleta = coletaDAO.resgatarColeta(idColeta);
+                doacao.setFarmacia(coleta.getFarmacia());
+                doacao.setDataDoacao(new Date());
+                doacao.setPaciente(coleta.getPaciente());
+                doacao.setMedicamento(coleta.getMedicamento());
+                doacaoDAO.salvar(doacao);
+            }
         } catch (Exception e) {
             throw IdrugExceptionHelper.getExcecao(e);
         }

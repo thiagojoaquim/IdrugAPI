@@ -11,19 +11,19 @@ import javax.persistence.Persistence;
 
 public class GenericoBO {
 
-    private FabricaModelo fabricaTO;
+    private FabricaModelo fabricaModelo;
     private FabricaDAO fabricaDAO;
     private EntityManager entityManager;
     private EntityManagerFactory emf;
 
     protected GenericoBO() {
         fabricaDAO = (FabricaDAO) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_DAO);
-        fabricaTO = (FabricaModelo) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_MODELO);
+        fabricaModelo = (FabricaModelo) FabricaProvedor.getFactory(FabricaConstantes.FABRICA_MODELO);
 
     }
 
-    protected FabricaModelo getFabricaTO() {
-        return this.fabricaTO;
+    protected FabricaModelo getFabricaModelo() {
+        return this.fabricaModelo;
     }
 
     protected FabricaDAO getFabricaDAO() {

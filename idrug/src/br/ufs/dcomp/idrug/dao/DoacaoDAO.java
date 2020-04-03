@@ -21,11 +21,12 @@ public class DoacaoDAO extends GenericoDAO<Doacao> {
         try {
             comecarTransacao();
             Query query = getEntityManager().createNativeQuery("INSERT INTO idrugdb.DOACOES( PACIENTE_CPF,"
-                    + " MEDICAMENTO_PRODUTO, MEDICAMENTO_DOSAGEM, DATAINTERESSE) values(?,?,?,?)");
+                    + " MEDICAMENTO_PRODUTO, MEDICAMENTO_DOSAGEM, DATADOACAO, FARMACIA_CNPJ) values(?,?,?,?,?)");
             query.setParameter(1, entidade.getPaciente().getCpf());
             query.setParameter(2, entidade.getMedicamento().getProduto());
             query.setParameter(3, entidade.getMedicamento().getDosagem());
             query.setParameter(4, new Date());
+            query.setParameter(5, entidade.getFarmacia().getCnpj());
             query.executeUpdate();
             commitar();
         } catch (Exception e) {
@@ -36,10 +37,11 @@ public class DoacaoDAO extends GenericoDAO<Doacao> {
         }
     }
 
-    public List<Doacao> resgatarDoacoesPaciente(String cpf) throws Exception {
+    public List<Doacao> resgatarDoacoes(String identificador) throws Exception {
         comecarTransacao();
-        Query query = getEntityManager().createNativeQuery("select * from idrugdb.doacoes where paciente_cpf = ?", Doacao.class);
-        query.setParameter(1, cpf);
+        Query query = getEntityManager().createNativeQuery("select * from idrugdb.doacoes where paciente_cpf = ? or farmacia_cnpj = ?", Doacao.class);
+        query.setParameter(1, identificador);
+        query.setParameter(2, identificador);
         List<Doacao> lista = query.getResultList();
         commitar();
         return lista;

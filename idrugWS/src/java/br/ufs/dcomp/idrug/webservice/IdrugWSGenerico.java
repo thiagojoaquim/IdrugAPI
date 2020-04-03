@@ -12,7 +12,7 @@ import br.ufs.dcomp.idrug.to.UsuarioTO;
 import br.ufs.dcomp.idrug.to.ValidarUsuarioTO;
 import java.util.List;
 
-public  class IdrugWSGenerico implements IdrugWS {
+public class IdrugWSGenerico implements IdrugWS {
 
     private FacadeWS facade;
 
@@ -56,20 +56,21 @@ public  class IdrugWSGenerico implements IdrugWS {
     }
 
     @Override
-    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException {
-        return facade.resgatarDoacoes(cpf);
+    public List<DoacaoTO> resgatarDoacoes(String identificador) throws IdrugException {
+        return facade.resgatarDoacoes(identificador);
     }
 
     @Override
-    public List<ColetaTO> resgatarColetas(String cpf) throws IdrugException {
-        return facade.resgatarColetas(cpf);
+    public List<ColetaTO> resgatarColetas(String identificador) throws IdrugException {
+        return facade.resgatarColetas(identificador);
     }
 
     @Override
-    public void confirmarColeta(int idColeta) throws IdrugException {
-        
+    public void confirmarColeta(int idColeta, int situacao) throws IdrugException {
+        facade.confirmarColeta(idColeta, situacao);
     }
-    
+
+    @Override
     public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException {
         return facade.resgatarMedicamentosDisponiveis(cnpj);
     }

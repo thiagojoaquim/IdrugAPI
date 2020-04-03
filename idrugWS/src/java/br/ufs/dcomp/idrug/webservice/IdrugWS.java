@@ -5,6 +5,7 @@ import br.ufs.dcomp.idrug.to.ColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
+import br.ufs.dcomp.idrug.to.MedicamentoDisponivelTO;
 import br.ufs.dcomp.idrug.to.MedicamentoTO;
 import br.ufs.dcomp.idrug.to.PacienteTO;
 import br.ufs.dcomp.idrug.to.UsuarioTO;
@@ -27,9 +28,11 @@ public interface IdrugWS {
 
     public void removerInteresse(int id) throws IdrugException;
 
-    public List<DoacaoTO> resgatarDoacoes(String cpf) throws IdrugException;
+    public List<DoacaoTO> resgatarDoacoes(String identificador) throws IdrugException;
 
-    public List<ColetaTO> resgatarColetas(String cpf) throws IdrugException;
+    public List<ColetaTO> resgatarColetas(String identificador) throws IdrugException;
 
-    public void confirmarColeta(int idColeta) throws IdrugException;
+    public void confirmarColeta(int idColeta, int situacao) throws IdrugException;
+
+    public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException;
 }

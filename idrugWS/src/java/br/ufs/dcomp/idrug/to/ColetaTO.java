@@ -11,6 +11,7 @@ public class ColetaTO {
     private int id;
     private String produto;
     private String dosagem;
+    private int situacao;
 
     public PacienteTO getPaciente() {
         return paciente;
@@ -52,6 +53,14 @@ public class ColetaTO {
 
     public void setDosagem(String dosagem) {
         this.dosagem = dosagem;
+    }
+
+    public int getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(int situacao) {
+        this.situacao = situacao;
     }
 
 }

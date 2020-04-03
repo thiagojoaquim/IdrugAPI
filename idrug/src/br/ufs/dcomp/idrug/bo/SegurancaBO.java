@@ -45,7 +45,7 @@ public class SegurancaBO extends GenericoBO {
 
             if (Validar.cpf(identificador)) {
                 PacienteDAO pacienteDAO = (PacienteDAO) getFabricaDAO().criar(PacienteDAO.class);
-                Paciente paciente = (Paciente) getFabricaTO().criar(Paciente.class);
+                Paciente paciente = (Paciente) getFabricaModelo().criar(Paciente.class);
                 paciente.setCpf(identificador);
                 paciente.getUsuario().setSenha(hashSenha);
                 paciente = pacienteDAO.resgatarPaciente(paciente);
@@ -55,7 +55,7 @@ public class SegurancaBO extends GenericoBO {
                     return paciente;
                 }
             } else if (Validar.cnpj(identificador)) {
-                Farmacia farmacia = (Farmacia) getFabricaTO().criar(Farmacia.class);
+                Farmacia farmacia = (Farmacia) getFabricaModelo().criar(Farmacia.class);
                 FarmaciaDAO farmaciaDAO = (FarmaciaDAO) getFabricaDAO().criar(FarmaciaDAO.class);
                 farmacia.setCnpj(senha);
                 farmacia.getUsuario().setSenha(hashSenha);
@@ -75,7 +75,7 @@ public class SegurancaBO extends GenericoBO {
 
     public void cadastrarFarmacia(String cnpj, String nome, String senha, String email) throws IdrugException {
         try {
-            Farmacia farmacia = (Farmacia) getFabricaTO().criar(Farmacia.class);
+            Farmacia farmacia = (Farmacia) getFabricaModelo().criar(Farmacia.class);
             UsuarioDAO farmaciaDAO = (UsuarioDAO) getFabricaDAO().criar(UsuarioDAO.class);
 
             if (!Validar.cnpj(cnpj)) {
@@ -99,7 +99,7 @@ public class SegurancaBO extends GenericoBO {
     public String cadastrarPaciente(String cpf, String nome, String senha, String email, Date dataNascimento) throws IdrugException {
 
         try {
-            Paciente paciente = (Paciente) getFabricaTO().criar(Paciente.class);
+            Paciente paciente = (Paciente) getFabricaModelo().criar(Paciente.class);
             UsuarioDAO pacienteDAO = (UsuarioDAO) getFabricaDAO().criar(UsuarioDAO.class);
             if (!Validar.cpf(cpf)) {
                 throw new IdrugException(Excecao.CPF_INVALIDO.mensagem, Excecao.CPF_INVALIDO.codigo);
