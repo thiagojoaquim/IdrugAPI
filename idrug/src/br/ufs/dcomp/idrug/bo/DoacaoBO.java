@@ -10,6 +10,7 @@ import br.ufs.dcomp.idrug.constantes.Excecao;
 import br.ufs.dcomp.idrug.dao.ColetaDAO;
 import br.ufs.dcomp.idrug.dao.DoacaoDAO;
 import br.ufs.dcomp.idrug.dao.InteresseDAO;
+import br.ufs.dcomp.idrug.dao.MedicamentoDisponivelDAO;
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.modelo.Coleta;
@@ -90,7 +91,7 @@ public class DoacaoBO extends GenericoBO {
     }
 
     public List<Coleta> resgatarColetas(String identificador) throws IdrugException {
-        if (!Validar.cpf(identificador) || !Validar.cnpj(identificador)) {
+        if (!Validar.cpf(identificador) && !Validar.cnpj(identificador)) {
             throw IdrugExceptionHelper.criarExcecao(Excecao.DADOS_INFORMADOS_INCORRETOS);
         }
         try {
@@ -100,7 +101,6 @@ public class DoacaoBO extends GenericoBO {
             throw IdrugExceptionHelper.getExcecao(e);
         }
     }
-
 
     public void confirmarColeta(int idColeta, int situacao) throws IdrugException {
 
@@ -122,5 +122,13 @@ public class DoacaoBO extends GenericoBO {
         } catch (Exception e) {
             throw IdrugExceptionHelper.getExcecao(e);
         }
+    }
+
+    public void cadastrarDisponibilidade(String produto, String dosagem, String cnpj, Date dataValidade, int quantidade) throws IdrugException {
+        if (!Validar.cnpj(cnpj)) {
+            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+        }
+        //MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO().criar(MedicamentoDisponivelDAO.class);
+        
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufs.dcomp.idrug.webservice.rest;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
@@ -44,9 +39,10 @@ public class DoacaoResource extends IdrugWSGenerico {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Override
     @Path("/coleta/confirmar")
     public void confirmarColeta(ConfirmarColetaTO confirmarColetaTO) throws IdrugException {
-        super.confirmarColeta(confirmarColetaTO.getIdColeta(), confirmarColetaTO.getSituacao());
+        super.confirmarColeta(confirmarColetaTO);
     }
 
     @GET
@@ -84,7 +80,7 @@ public class DoacaoResource extends IdrugWSGenerico {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Override
-    @Path("/coleta/resgatar")
+    @Path("/medicamentos/disponiveis/resgatar")
     public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(@QueryParam("cnpj") String cnpj) throws IdrugException {
         return super.resgatarMedicamentosDisponiveis(cnpj);
     }

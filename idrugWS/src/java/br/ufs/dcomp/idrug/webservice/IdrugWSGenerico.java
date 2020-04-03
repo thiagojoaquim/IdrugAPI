@@ -2,6 +2,7 @@ package br.ufs.dcomp.idrug.webservice;
 
 import br.ufs.dcomp.idrug.exception.IdrugException;
 import br.ufs.dcomp.idrug.to.ColetaTO;
+import br.ufs.dcomp.idrug.to.ConfirmarColetaTO;
 import br.ufs.dcomp.idrug.to.DoacaoTO;
 import br.ufs.dcomp.idrug.to.FarmaciaTO;
 import br.ufs.dcomp.idrug.to.InteresseTO;
@@ -66,12 +67,17 @@ public class IdrugWSGenerico implements IdrugWS {
     }
 
     @Override
-    public void confirmarColeta(int idColeta, int situacao) throws IdrugException {
-        facade.confirmarColeta(idColeta, situacao);
+    public void confirmarColeta(ConfirmarColetaTO confirmarColetaTO) throws IdrugException {
+        facade.confirmarColeta(confirmarColetaTO.getIdColeta(), confirmarColetaTO.getSituacao());
     }
 
     @Override
     public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(String cnpj) throws IdrugException {
         return facade.resgatarMedicamentosDisponiveis(cnpj);
+    }
+
+    @Override
+    public void cadastrarDisponibilidade(MedicamentoDisponivelTO medicamentoDisponivelTO) throws IdrugException {
+        return;
     }
 }

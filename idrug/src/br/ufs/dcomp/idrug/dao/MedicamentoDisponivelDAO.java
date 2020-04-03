@@ -26,4 +26,22 @@ public class MedicamentoDisponivelDAO extends GenericoDAO<MedicamentoDisponivel>
         return medicamentos;
     }
 
+    public void inserirOuAtualizarMedicamentoDisponivel(MedicamentoDisponivel medicamentoDisponivel) {
+        comecarTransacao();
+        Query query = getEntityManager().createNativeQuery("SELECT * FROM idrugdb.medicamento_disponivel WHERE "
+                + "medicamento_produto = ? and medicamento_dosagem = ? and datavalidade = ? and farmacia_cnpj = ?", MedicamentoDisponivel.class);
+        query.setParameter(1, medicamentoDisponivel.getMedicamento().getProduto());
+        query.setParameter(2, medicamentoDisponivel.getMedicamento().getDosagem());
+        query.setParameter(3, medicamentoDisponivel.getDataValidade());
+        query.setParameter(4, medicamentoDisponivel.getFarmacia().getCnpj());
+        MedicamentoDisponivel md = null;
+        if (query.getResultList().size() > 0) {
+            md = (MedicamentoDisponivel) query.getResultList().get(0);
+        }
+        
+        if (md == null) {
+            getEntityManager().persist(medicamentoDisponivel);
+        }
+    }
+
 }
