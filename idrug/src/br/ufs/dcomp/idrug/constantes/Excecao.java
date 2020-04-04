@@ -13,7 +13,7 @@ public enum Excecao {
 
     USUARIO_SENHA_INVALIDO("Usuario ou senha é inválido", "IDR0001"),
     CPF_INVALIDO("O cpf informado é inválido", "IDR0002"),
-    CNPJ_INVALIDO("O cpf informado é inválido", "IDR0003"),
+    CNPJ_INVALIDO("O cnpj informado é inválido", "IDR0003"),
     NAO_FOI_POSSIVEL_CADASTRAR_USUARIO("Não foi possível cadastrar o usuário informado.", "IDR0004"),
     NAO_FOI_POSSIVEL_RESGATAR_MEDICAMENTOS("Não foi possível resgatar os medicamentos.", "IDR0005"),
     DADOS_INFORMADOS_INCORRETOS("Dados incorretos.", "IDR006"),

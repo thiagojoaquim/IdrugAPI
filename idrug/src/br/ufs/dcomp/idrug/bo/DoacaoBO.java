@@ -129,7 +129,7 @@ public class DoacaoBO extends GenericoBO {
 
     public void cadastrarDisponibilidade(String produto, String dosagem, String cnpj, Date dataValidade, int quantidade) throws IdrugException {
         if (!Validar.cnpj(cnpj)) {
-            throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
+            throw IdrugExceptionHelper.criarExcecao(Excecao.CNPJ_INVALIDO);
         }
         try {
             MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO().criar(MedicamentoDisponivelDAO.class);
@@ -138,6 +138,7 @@ public class DoacaoBO extends GenericoBO {
             medicamentoDisponivel.getFarmacia().setCnpj(cnpj);
             medicamentoDisponivel.getMedicamento().setDosagem(dosagem);
             medicamentoDisponivel.getMedicamento().setProduto(produto);
+            medicamentoDisponivel.setQuantidade(quantidade);
             medicamentoDisponivelDAO.inserirOuAtualizarMedicamentoDisponivel(medicamentoDisponivel);
         } catch (Exception ex) {
             throw IdrugExceptionHelper.getExcecao(ex);

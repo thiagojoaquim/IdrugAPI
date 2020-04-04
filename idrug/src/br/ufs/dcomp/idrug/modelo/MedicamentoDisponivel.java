@@ -25,7 +25,7 @@ public class MedicamentoDisponivel implements EntidadeBase {
     @Column(name = "id_medicamento_disponivel")
     private int id;
     @Column(name = "quantidade_disponivel")
-    private int quantidade;
+    private Integer quantidade;
 
     public Farmacia getFarmacia() {
         return farmacia;
@@ -59,11 +59,11 @@ public class MedicamentoDisponivel implements EntidadeBase {
         this.id = id;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

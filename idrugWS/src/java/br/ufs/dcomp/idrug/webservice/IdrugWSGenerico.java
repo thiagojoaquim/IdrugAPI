@@ -78,6 +78,6 @@ public class IdrugWSGenerico implements IdrugWS {
 
     @Override
     public void cadastrarDisponibilidade(MedicamentoDisponivelTO medicamentoDisponivelTO) throws IdrugException {
-        return;
+        facade.cadastrarDisponibilidade(medicamentoDisponivelTO);
     }
 }

@@ -192,4 +192,10 @@ public class FacadeWS {
         DoacaoBO doacaoBO = DoacaoBO.getInstancia();
         doacaoBO.confirmarColeta(idColeta, situacao);
     }
+    
+    public void cadastrarDisponibilidade(MedicamentoDisponivelTO medicamentoDisponivelTO) throws IdrugException {
+          DoacaoBO doacaoBO = DoacaoBO.getInstancia();
+          doacaoBO.cadastrarDisponibilidade(medicamentoDisponivelTO.getProduto(), medicamentoDisponivelTO.getDosagem(),
+                  medicamentoDisponivelTO.getCnpj(), medicamentoDisponivelTO.getDataValidade(), medicamentoDisponivelTO.getQuantidade());
+    }
 }

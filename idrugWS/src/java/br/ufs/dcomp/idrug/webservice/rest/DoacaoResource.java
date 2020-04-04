@@ -84,4 +84,13 @@ public class DoacaoResource extends IdrugWSGenerico {
     public List<MedicamentoDisponivelTO> resgatarMedicamentosDisponiveis(@QueryParam("cnpj") String cnpj) throws IdrugException {
         return super.resgatarMedicamentosDisponiveis(cnpj);
     }
+    
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    @Path("/medicamentos/disponiveis/cadastrar")
+    public void cadastrarDisponibilidade(MedicamentoDisponivelTO medicamentoDisponivelTO) throws IdrugException {
+         super.cadastrarDisponibilidade(medicamentoDisponivelTO);
+    }
 }

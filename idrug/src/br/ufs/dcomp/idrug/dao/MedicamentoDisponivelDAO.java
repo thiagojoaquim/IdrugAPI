@@ -26,7 +26,21 @@ public class MedicamentoDisponivelDAO extends GenericoDAO<MedicamentoDisponivel>
         return medicamentos;
     }
 
-    public void inserirOuAtualizarMedicamentoDisponivel(MedicamentoDisponivel medicamentoDisponivel) {
+    public void salvar(MedicamentoDisponivel md) throws Exception {
+        Query query = getEntityManager().createNativeQuery("INSERT INTO idrugdb.medicamento_disponivel"
+                + "(medicamento_produto, medicamento_dosagem, datavalidade, farmacia_cnpj, quantidade_disponivel) VALUES"
+                + "( ?,?,?,?, ?)");
+        query.setParameter(1, md.getMedicamento().getProduto());
+        query.setParameter(2, md.getMedicamento().getDosagem());
+        query.setParameter(3, md.getDataValidade());
+        query.setParameter(4, md.getFarmacia().getCnpj());
+        query.setParameter(5, md.getQuantidade());
+        query.executeUpdate();
+        commitar();
+        fecharConexao();
+    }
+
+    public void inserirOuAtualizarMedicamentoDisponivel(MedicamentoDisponivel medicamentoDisponivel) throws Exception {
         comecarTransacao();
         Query query = getEntityManager().createNativeQuery("SELECT * FROM idrugdb.medicamento_disponivel WHERE "
                 + "medicamento_produto = ? and medicamento_dosagem = ? and datavalidade = ? and farmacia_cnpj = ?", MedicamentoDisponivel.class);
@@ -39,10 +53,20 @@ public class MedicamentoDisponivelDAO extends GenericoDAO<MedicamentoDisponivel>
             md = (MedicamentoDisponivel) query.getResultList().get(0);
         }
         if (md == null) {
-            getEntityManager().persist(medicamentoDisponivel);
+            salvar(medicamentoDisponivel);
         } else {
-            getEntityManager().merge(medicamentoDisponivel);
+            query = getEntityManager().createNativeQuery("UPDATE idrugdb.medicamento_disponivel SET quantidade_disponivel = ? where farmacia_cnpj = ? "
+                    + "and medicamento_dosagem = ? and datavalidade = ? and medicamento_produto = ?");
+            query.setParameter(1, medicamentoDisponivel.getQuantidade().intValue());
+            query.setParameter(2, medicamentoDisponivel.getFarmacia().getCnpj());
+            query.setParameter(3, medicamentoDisponivel.getMedicamento().getDosagem());
+            query.setParameter(4, medicamentoDisponivel.getDataValidade());
+            query.setParameter(5, medicamentoDisponivel.getMedicamento().getProduto());
+            query.executeUpdate();
+
         }
+        commitar();
+        fecharConexao();
     }
 
 }
