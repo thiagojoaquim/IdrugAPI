@@ -57,7 +57,7 @@ public class SegurancaBO extends GenericoBO {
             } else if (Validar.cnpj(identificador)) {
                 Farmacia farmacia = (Farmacia) getFabricaModelo().criar(Farmacia.class);
                 FarmaciaDAO farmaciaDAO = (FarmaciaDAO) getFabricaDAO().criar(FarmaciaDAO.class);
-                farmacia.setCnpj(senha);
+                farmacia.setCnpj(identificador);
                 farmacia.getUsuario().setSenha(hashSenha);
                 farmacia = farmaciaDAO.resgatarFarmacia(farmacia);
                 if (farmacia == null) {
