@@ -15,11 +15,11 @@ public class MedicamentoDisponivel implements EntidadeBase {
     
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "farmacia_cnpj")
-    private Farmacia farmacia;
+    private Farmacia farmacia = new Farmacia();
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medicamento_produto")
     @JoinColumn(name = "medicamento_dosagem")
-    private Medicamento medicamento;
+    private Medicamento medicamento = new Medicamento();
     private Date dataValidade;
     @Id
     @Column(name = "id_medicamento_disponivel")

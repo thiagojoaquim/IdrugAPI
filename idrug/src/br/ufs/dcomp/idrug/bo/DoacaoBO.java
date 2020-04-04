@@ -16,9 +16,12 @@ import br.ufs.dcomp.idrug.exception.IdrugExceptionHelper;
 import br.ufs.dcomp.idrug.modelo.Coleta;
 import br.ufs.dcomp.idrug.modelo.Doacao;
 import br.ufs.dcomp.idrug.modelo.Interesse;
+import br.ufs.dcomp.idrug.modelo.MedicamentoDisponivel;
 import br.ufs.dcomp.idrug.util.Validar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -128,7 +131,17 @@ public class DoacaoBO extends GenericoBO {
         if (!Validar.cnpj(cnpj)) {
             throw IdrugExceptionHelper.criarExcecao(Excecao.CPF_INVALIDO);
         }
-        //MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO().criar(MedicamentoDisponivelDAO.class);
-        
+        try {
+            MedicamentoDisponivelDAO medicamentoDisponivelDAO = (MedicamentoDisponivelDAO) getFabricaDAO().criar(MedicamentoDisponivelDAO.class);
+            MedicamentoDisponivel medicamentoDisponivel = (MedicamentoDisponivel) getFabricaModelo().criar(MedicamentoDisponivel.class);
+            medicamentoDisponivel.setDataValidade(dataValidade);
+            medicamentoDisponivel.getFarmacia().setCnpj(cnpj);
+            medicamentoDisponivel.getMedicamento().setDosagem(dosagem);
+            medicamentoDisponivel.getMedicamento().setProduto(produto);
+            medicamentoDisponivelDAO.inserirOuAtualizarMedicamentoDisponivel(medicamentoDisponivel);
+        } catch (Exception ex) {
+            throw IdrugExceptionHelper.getExcecao(ex);
+        }
+
     }
 }

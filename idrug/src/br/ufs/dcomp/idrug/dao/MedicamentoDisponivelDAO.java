@@ -38,9 +38,10 @@ public class MedicamentoDisponivelDAO extends GenericoDAO<MedicamentoDisponivel>
         if (query.getResultList().size() > 0) {
             md = (MedicamentoDisponivel) query.getResultList().get(0);
         }
-        
         if (md == null) {
             getEntityManager().persist(medicamentoDisponivel);
+        } else {
+            getEntityManager().merge(medicamentoDisponivel);
         }
     }
 

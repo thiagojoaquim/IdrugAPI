@@ -5,6 +5,7 @@
  */
 package br.ufs.dcomp.idrug.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,13 +21,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "farmacia")
 public class Farmacia implements EntidadeBase, TipoUsuario {
+
     @Id
     @Column(name = "cnpj")
     private String cnpj;
-    @OneToOne
-   @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     private Usuario usuario = new Usuario();
-  
 
     public String getCnpj() {
         return cnpj;
@@ -42,5 +43,5 @@ public class Farmacia implements EntidadeBase, TipoUsuario {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }    
+    }
 }
