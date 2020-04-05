@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufs.dcomp.idrug.bo;
 
 import br.ufs.dcomp.idrug.constantes.Constantes;
@@ -20,13 +15,7 @@ import br.ufs.dcomp.idrug.modelo.MedicamentoDisponivel;
 import br.ufs.dcomp.idrug.util.Validar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author thiag
- */
 public class DoacaoBO extends GenericoBO {
 
     private static DoacaoBO instancia;
@@ -48,6 +37,38 @@ public class DoacaoBO extends GenericoBO {
         }
     }
 
+    private boolean verificarMatch(String produto, String dosagem) throws Exception {
+        MedicamentoDisponivelDAO medicamentoDisponivelDAO
+                = (MedicamentoDisponivelDAO) getFabricaDAO().criar(MedicamentoDisponivelDAO.class);
+        InteresseDAO interesseDAO
+                = (InteresseDAO) getFabricaDAO().criar(InteresseDAO.class);
+        ColetaDAO coletaDAO
+                = (ColetaDAO) getFabricaDAO().criar(ColetaDAO.class);
+        MedicamentoDisponivel md = medicamentoDisponivelDAO.verificarDisponibilidade(produto, dosagem);
+        if (Validar.nulo(md)) {
+            return false;
+        }
+        Interesse interesse = interesseDAO.resgatar(produto, dosagem);
+        if (Validar.nulo(interesse)) {
+            return false;
+        }
+        if (!Validar.nulo(coletaDAO.resgatarColeta(md.getFarmacia().getCnpj(), interesse.getPaciente().getCpf(), produto, dosagem))) {
+            return false;
+        }
+        Coleta coleta = (Coleta) getFabricaModelo().criar(Coleta.class);
+        coleta.getFarmacia().setCnpj(md.getFarmacia().getCnpj());
+        coleta.getMedicamento().setDosagem(dosagem);
+        coleta.getMedicamento().setProduto(produto);
+        coleta.getPaciente().setCpf(dosagem);
+        coletaDAO.salvar(coleta);
+        interesseDAO.deletar(interesse.getId());
+        md.setQuantidade(md.getQuantidade().intValue() - 1);
+        medicamentoDisponivelDAO.inserirOuAtualizarMedicamentoDisponivel(md);
+
+        coletaDAO.salvar(coleta);
+        return true;
+    }
+
     public void cadastrarInteresse(Interesse interesse) throws IdrugException {
         try {
             if (!Validar.cpf(interesse.getPaciente().getCpf())) {
@@ -55,6 +76,7 @@ public class DoacaoBO extends GenericoBO {
             }
             InteresseDAO interesseDAO = (InteresseDAO) getFabricaDAO().criar(InteresseDAO.class);
             interesseDAO.salvar(interesse);
+            verificarMatch(interesse.getMedicamento().getProduto(), interesse.getMedicamento().getDosagem());
         } catch (Exception ex) {
             throw IdrugExceptionHelper.criarExcecao(Excecao.ERRO_GENERICO, ex);
         }
@@ -140,6 +162,7 @@ public class DoacaoBO extends GenericoBO {
             medicamentoDisponivel.getMedicamento().setProduto(produto);
             medicamentoDisponivel.setQuantidade(quantidade);
             medicamentoDisponivelDAO.inserirOuAtualizarMedicamentoDisponivel(medicamentoDisponivel);
+            verificarMatch(produto, dosagem);
         } catch (Exception ex) {
             throw IdrugExceptionHelper.getExcecao(ex);
         }

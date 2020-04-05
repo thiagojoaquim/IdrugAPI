@@ -14,17 +14,17 @@ public class Coleta implements EntidadeBase {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paciente_cpf", referencedColumnName = "cpf")
-    private Paciente paciente;
+    private Paciente paciente = new Paciente();
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medicamento_produto", referencedColumnName = "produto")
     @JoinColumn(name = "medicamento_dosagem", referencedColumnName = "dosagem")
-    private Medicamento medicamento;
+    private Medicamento medicamento = new Medicamento();
     @Id
     @Column(name = "id_coleta")
     private int id;
     @ManyToOne
     @JoinColumn(name = "farmacia_cnpj", referencedColumnName = "cnpj")
-    private Farmacia farmacia;
+    private Farmacia farmacia = new Farmacia();
     @Column(name = "situacao")
     private int situacao;
 

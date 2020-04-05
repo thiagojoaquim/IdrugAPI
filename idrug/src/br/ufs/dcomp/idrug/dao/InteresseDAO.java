@@ -19,6 +19,7 @@ public class InteresseDAO extends GenericoDAO<Interesse> {
             query.setParameter(4, new Date());
             query.executeUpdate();
             commitar();
+            fecharConexao();
         } catch (Exception e) {
             rollback();
             throw e;
@@ -31,7 +32,24 @@ public class InteresseDAO extends GenericoDAO<Interesse> {
         query.setParameter(1, cpf);
         List<Interesse> lista = query.getResultList();
         commitar();
+        fecharConexao();
         return lista;
+
+    }
+
+    public Interesse resgatar(String produto, String dosagem) throws Exception {
+        comecarTransacao();
+        Query query = getEntityManager().createNativeQuery("select * from idrugdb.registro_interesse where medicamento_produto = ? "
+                + "and medicamento_dosagem = ? order by datainteresse limit 1", Interesse.class);
+        query.setParameter(1, produto);
+        query.setParameter(2, dosagem);
+        List<Interesse> lista = query.getResultList();
+        commitar();
+        fecharConexao();
+        if (lista.size() > 0) {
+            return lista.get(0);
+        }
+        return null;
 
     }
 
@@ -42,6 +60,7 @@ public class InteresseDAO extends GenericoDAO<Interesse> {
             query.setParameter(1, id);
             query.executeUpdate();
             commitar();
+            fecharConexao();
         } catch (Exception e) {
             rollback();
             throw e;
