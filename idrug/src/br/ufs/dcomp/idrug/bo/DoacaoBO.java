@@ -76,7 +76,7 @@ public class DoacaoBO extends GenericoBO {
             }
             InteresseDAO interesseDAO = (InteresseDAO) getFabricaDAO().criar(InteresseDAO.class);
             interesseDAO.salvar(interesse);
-            verificarMatch(interesse.getMedicamento().getProduto(), interesse.getMedicamento().getDosagem());
+           // verificarMatch(interesse.getMedicamento().getProduto(), interesse.getMedicamento().getDosagem());
         } catch (Exception ex) {
             throw IdrugExceptionHelper.criarExcecao(Excecao.ERRO_GENERICO, ex);
         }
@@ -143,6 +143,18 @@ public class DoacaoBO extends GenericoBO {
                 doacao.setPaciente(coleta.getPaciente());
                 doacao.setMedicamento(coleta.getMedicamento());
                 doacaoDAO.salvar(doacao);
+                coleta.setSituacao(situacao);
+                coletaDAO.atualizar(coleta);
+            }
+            if(situacao == Constantes.STATUS_COLETA_NEGADA_FARMACIA){
+                Coleta coleta = coletaDAO.resgatarColeta(idColeta);
+                coleta.setSituacao(situacao);
+                coletaDAO.atualizar(coleta);
+            }
+            if(situacao == Constantes.STATUS_COLETA_NEGADA_PACIENTE){
+                Coleta coleta = coletaDAO.resgatarColeta(idColeta);
+                coleta.setSituacao(situacao);
+                coletaDAO.atualizar(coleta);
             }
         } catch (Exception e) {
             throw IdrugExceptionHelper.getExcecao(e);
@@ -162,7 +174,7 @@ public class DoacaoBO extends GenericoBO {
             medicamentoDisponivel.getMedicamento().setProduto(produto);
             medicamentoDisponivel.setQuantidade(quantidade);
             medicamentoDisponivelDAO.inserirOuAtualizarMedicamentoDisponivel(medicamentoDisponivel);
-            verificarMatch(produto, dosagem);
+         //   verificarMatch(produto, dosagem);
         } catch (Exception ex) {
             throw IdrugExceptionHelper.getExcecao(ex);
         }
